@@ -16,7 +16,7 @@ export default function HomePage() {
   return (
     <div className="mt-[70px]">
       <HeroSlider />
-      <div className="p-10 bg-black">
+      <div className="bg-black">
         <ThreeItemGrid />
       </div>
       <Carousel />
