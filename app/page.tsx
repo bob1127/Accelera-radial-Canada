@@ -15,6 +15,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <div className="mt-[70px]">
+      <h1>test</h1>
       <HeroSlider />
       <div className="bg-black">
         <ThreeItemGrid />
