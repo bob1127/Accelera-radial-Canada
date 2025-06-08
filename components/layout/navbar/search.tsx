@@ -2,49 +2,24 @@
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Search() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [expanded, setExpanded] = useState(false);
   const [query, setQuery] = useState(searchParams?.get("q") || "");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (expanded && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [expanded]);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!query.trim()) {
-      setExpanded(false);
-      return;
-    }
+    if (!query.trim()) return;
     router.push(`/search?q=${encodeURIComponent(query.trim())}`);
-  };
-
-  const handleIconClick = () => {
-    if (expanded) {
-      if (query.trim()) {
-        router.push(`/search?q=${encodeURIComponent(query.trim())}`);
-      } else {
-        setExpanded(false);
-        setQuery("");
-      }
-    } else {
-      setExpanded(true);
-    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className={`relative flex items-center transition-all duration-300 ${
-        expanded ? "w-full lg:w-80" : "w-10"
-      }`}
+      className="relative flex items-center w-full lg:w-80 transition-all duration-300"
     >
       <input
         ref={inputRef}
@@ -54,15 +29,10 @@ export default function Search() {
         autoComplete="off"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className={`text-md transition-all duration-300 ease-in-out rounded-lg border bg-white px-4 py-2 text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400 ${
-          expanded
-            ? "opacity-100 w-full pr-10"
-            : "opacity-0 w-0 p-0 border-none"
-        }`}
+        className="text-md w-full rounded-lg border bg-white px-4 py-2 pr-10 text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
       />
       <button
-        type="button"
-        onClick={handleIconClick}
+        type="submit"
         className="absolute right-0 mr-2 flex h-full items-center justify-center"
       >
         <MagnifyingGlassIcon className="h-5 w-5 text-black dark:text-white" />

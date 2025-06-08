@@ -199,16 +199,7 @@ export default function EthnocareScrollAnimation() {
         </div>
       </section>
 
-      <section className="flex justify-center items-center bg-gradient-to-b from-black to-[#364549] w-full h-screen">
-        <p className="w-3/4 text-center text-white text-3xl font-normal leading-tight">
-          Our 3D design tool is built to enhance your creative workflow,
-          <span className="text-[#75e1ff]">
-            {" "}
-            providing an all-in-one solution
-          </span>{" "}
-          for crafting stunning visuals and prototypes.
-        </p>
-      </section>
+      <section className="flex justify-center items-center bg-gradient-to-b from-black to-[#364549] w-full h-screen"></section>
     </div>
   );
 }

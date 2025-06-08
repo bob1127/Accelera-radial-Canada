@@ -11,7 +11,7 @@ import {
 
 export const ShiftingDropDown = () => {
   return (
-    <div className="flex h-[30px] w-full justify-start p-2 text-neutral-200 md:justify-center">
+    <div className="flex h-[30px] w-full  pt-[-10px] text-neutral-200 justify-center">
       <Tabs />
     </div>
   );

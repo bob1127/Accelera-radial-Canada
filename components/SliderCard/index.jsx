@@ -147,22 +147,22 @@ export default function CapsuleStickyCards() {
 
   const cardContent = [
     {
-      title: "Curved Horizon",
+      title: "ENDURE",
       desc: "A futuristic residence that plays with curvature and flow, blending bold geometry with natural topography.",
       img: "/card-img-1.jpg",
     },
     {
-      title: "Glass Haven",
+      title: "GRIP",
       desc: "A sleek pavilion of pure transparency, openness and light, designed to dissolve into its environment.",
       img: "/card-img-2.jpg",
     },
     {
-      title: "Moss Cube",
+      title: "SPEED",
       desc: "A minimalist cube home crowned with a living moss dome, merging micro-architecture with ecological design.",
       img: "/card-img-3.jpg",
     },
     {
-      title: "Floating Shelter",
+      title: "RIDE",
       desc: "This design explores an ethereal structure perched on a grassy islet, seemingly hovering above water.",
       img: "/card-img-4.jpg",
     },
@@ -172,7 +172,7 @@ export default function CapsuleStickyCards() {
     <div ref={containerRef} className="w-full">
       <section className="intro h-screen flex items-center justify-center">
         <h1 className="text-4xl font-bold text-center max-w-3xl">
-          We design spaces that don’t just exist.
+          Drive Beyond Limits
         </h1>
       </section>
       <section className="cards">
@@ -202,12 +202,12 @@ export default function CapsuleStickyCards() {
         ))}
       </section>
       <section className="outro h-screen flex  flex-col lg:flex-row items-center justify-center bg-black text-white">
-        <h1 className="text-3xl font-bold text-center max-w-3xl">
-          Architecture reimagined for the virtual age.
+        <h1 className="text-3xl font-bold text-center px-3 sm:px-10 max-w-3xl">
+          Where Performance Meets Precision
         </h1>
 
         <Marquee
-          speed={20} // 調整速度
+          speed={30} // 調整速度
         >
           <Image
             src="/images/social_media/NC0wv3luzKq8LTfh1YEk.webp"
