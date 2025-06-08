@@ -199,7 +199,33 @@ export default function EthnocareScrollAnimation() {
         </div>
       </section>
 
-      <section className="flex justify-center items-center bg-gradient-to-b from-black to-[#364549] w-full h-screen"></section>
+      <section className="relative w-full h-screen overflow-hidden">
+        {/* 影片 */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/videos/file.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* 漸層遮罩 */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black to-[#364549] opacity-80 pointer-events-none"></div>
+
+        {/* 內容（可選） */}
+        <div className="relative flex-col  z-10 flex justify-center items-center h-full text-white">
+          <h2 className="text-4xl md:text-6xl font-bold">
+            Stay Fast. Stay Firm
+          </h2>
+          <p className="text-[15px] mt-6 text-white">
+            Speed needs control — we deliver both
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

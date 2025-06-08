@@ -69,6 +69,12 @@ export async function Navbar() {
             >
               About
             </Link>
+            <Link
+              href="/cart"
+              className="text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100 rounded-full duration-300 px-4 py-2 text-[14px]"
+            >
+              cart
+            </Link>
           </div>
         </div>
       </div>

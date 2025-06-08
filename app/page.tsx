@@ -1,6 +1,7 @@
 import { Carousel } from "components/carousel";
 import { ThreeItemGrid } from "components/grid/three-items";
-import Footer from "components/layout/footer";
+import AccordionHover from "../components/AccordionHover";
+import GridHover from "../components/GridHover";
 import HeroSlider from "../components/HeroSlideContact/page";
 import ScrollSlider from "../components/ScrollSlider/index";
 import SliderCard from "../components/SliderCard/index";
@@ -16,11 +17,15 @@ export default function HomePage() {
   return (
     <div className="">
       <HeroSlider />
-      <div className="bg-black p-8">
+      <div className="bg-[#0f0f0f] p-8">
         <ThreeItemGrid />
       </div>
       <Carousel />
+
       <ScrollSlider />
+
+      <AccordionHover />
+      <GridHover />
       <SliderCard />
     </div>
   );
