@@ -22,7 +22,6 @@ export default function HomePage() {
       <Carousel />
       <ScrollSlider />
       <SliderCard />
-      <Footer />
     </div>
   );
 }

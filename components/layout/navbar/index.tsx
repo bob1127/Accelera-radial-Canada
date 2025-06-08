@@ -60,8 +60,16 @@ export async function Navbar() {
         </div>
       </div>
       <div className="bottom-nav bg-white p-4 w-full">
-        <div className=" top-[0px]">
+        <div className=" top-[0px] justify-center flex">
           <ShiftingDropDown />
+          <div className="link-wrap ml-2 mt-1">
+            <Link
+              href="/about"
+              className="text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100 rounded-full duration-300 px-4 py-2 text-[14px]"
+            >
+              About
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

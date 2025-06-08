@@ -1,4 +1,5 @@
 import { CartProvider } from "components/cart/cart-context";
+import Footer from "components/layout/footer";
 import { Navbar } from "components/layout/navbar";
 import { WelcomeToast } from "components/welcome-toast";
 import { GeistSans } from "geist/font/sans";
@@ -42,6 +43,7 @@ export default async function RootLayout({
           </main>
         </CartProvider>
       </body>
+      <Footer />
     </html>
   );
 }
