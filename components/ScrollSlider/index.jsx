@@ -93,37 +93,37 @@ export default function EthnocareScrollAnimation() {
 
   const cardData = [
     {
-      img: "/images/index/carousel/NBABoqBEKSGLYPfiCGla.png",
+      img: "/images/index/carousel/NBABoqBEKSGLYPfiCGla.webp",
       title: "IOTA-ST68",
       subtitle: "THE MODERN SUV TIRE",
       text: "Iota ST68 – A durable SUV tire with sharp handling, strong wet grip, and all-season reliability.",
     },
     {
-      img: "/images/index/carousel/kpLokax3l8cmCQeaHnkl.png",
+      img: "/images/index/carousel/kpLokax3l8cmCQeaHnkl.webp",
       title: "BADAK X-TREME",
       subtitle: "THE Off-road SUVs TIRE",
       text: "The Accelera Badak X-Treme is a rugged mud-terrain tire built for extreme off-road grip and durability.",
     },
     {
-      img: "/images/index/carousel/OgADK7EjF5IG71sFPSIs.png",
+      img: "/images/index/carousel/OgADK7EjF5IG71sFPSIs.webp",
       title: "BADAK X-TREME",
       subtitle: "THE Off-road SUVs TIRE",
       text: "The Accelera Badak X-Treme is a rugged mud-terrain tire built for extreme off-road grip and durability.",
     },
     {
-      img: "/images/index/carousel/NBABoqBEKSGLYPfiCGla.png",
+      img: "/images/index/carousel/NBABoqBEKSGLYPfiCGla.webp",
       title: "IOTA-ST68",
       subtitle: "THE MODERN SUV TIRE",
       text: "Iota ST68 – A durable SUV tire with sharp handling, strong wet grip, and all-season reliability.",
     },
     {
-      img: "/images/index/carousel/kpLokax3l8cmCQeaHnkl.png",
+      img: "/images/index/carousel/kpLokax3l8cmCQeaHnkl.webp",
       title: "BADAK X-TREME",
       subtitle: "THE Off-road SUVs TIRE",
       text: "The Accelera Badak X-Treme is a rugged mud-terrain tire built for extreme off-road grip and durability.",
     },
     {
-      img: "/images/index/carousel/OgADK7EjF5IG71sFPSIs.png",
+      img: "/images/index/carousel/OgADK7EjF5IG71sFPSIs.webp",
       title: "BADAK X-TREME",
       subtitle: "THE Off-road SUVs TIRE",
       text: "The Accelera Badak X-Treme is a rugged mud-terrain tire built for extreme off-road grip and durability.",

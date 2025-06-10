@@ -15,7 +15,7 @@ export default function ProductDetailsContent({
       <ProductSwiper
         images={[
           { src: "/images/index/banner/banner05.jpg", alt: "Product 1" },
-          { src: "/images/index/banner/banner06.jpg", alt: "Product 2" },
+          { src: "/images/index/banner/banner06.webp", alt: "Product 2" },
           { src: "/images/index/banner/banner04.jpg", alt: "Product 3" },
         ]}
       />

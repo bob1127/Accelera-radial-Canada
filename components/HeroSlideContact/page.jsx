@@ -15,7 +15,7 @@ const Photos = () => {
   const sliderRef = useRef(null);
 
   const imagePaths = [
-    "/images/index/banner/banner06.jpg",
+    "/images/index/banner/banner06.webp",
     "/images/index/banner/banner01.jpg",
     "/images/index/banner/banner02.jpg",
     "/images/index/banner/banner04.jpg",

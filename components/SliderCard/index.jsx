@@ -149,22 +149,22 @@ export default function CapsuleStickyCards() {
     {
       title: "ENDURE",
       desc: "A futuristic residence that plays with curvature and flow, blending bold geometry with natural topography.",
-      img: "/card-img-1.jpg",
+      img: "/card-img-1.webp",
     },
     {
       title: "GRIP",
       desc: "A sleek pavilion of pure transparency, openness and light, designed to dissolve into its environment.",
-      img: "/card-img-2.jpg",
+      img: "/card-img-2.webp",
     },
     {
       title: "SPEED",
       desc: "A minimalist cube home crowned with a living moss dome, merging micro-architecture with ecological design.",
-      img: "/card-img-3.jpg",
+      img: "/card-img-3.webp",
     },
     {
       title: "RIDE",
       desc: "This design explores an ethereal structure perched on a grassy islet, seemingly hovering above water.",
-      img: "/card-img-4.jpg",
+      img: "/card-img-4.webo",
     },
   ];
 
