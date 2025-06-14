@@ -5,6 +5,21 @@ export type SortFilterItem = {
   reverse: boolean;
 };
 
+// URL path 導向用
+export type PathFilterItem = {
+  title: string;
+  path: string;
+};
+
+// query string filter 用（像是 width_245）
+export type FilterOnlyItem = {
+  title: string;
+  slug: string;
+};
+
+// 統一給 FilterItem 用
+export type ListItem = SortFilterItem | PathFilterItem | FilterOnlyItem;
+
 export const defaultSort: SortFilterItem = {
   title: 'Relevance',
   slug: null,

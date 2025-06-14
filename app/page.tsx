@@ -1,10 +1,14 @@
-import { Carousel } from "components/carousel";
-import { ThreeItemGrid } from "components/grid/three-items";
+import Image from "next/image";
+import Script from "next/script";
+import Marquee from "react-fast-marquee";
 import AccordionHover from "../components/AccordionHover";
+import AutoInfiniteCarousel from "../components/AutoInfiniteCarousel";
+import { Carousel } from "../components/Carousel/Carousel";
 import GridHover from "../components/GridHover";
 import HeroSlider from "../components/HeroSlideContact/page";
 import ScrollSlider from "../components/ScrollSlider/index";
 import SliderCard from "../components/SliderCard/index";
+
 export const metadata = {
   description:
     "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
@@ -14,19 +18,427 @@ export const metadata = {
 };
 
 export default function HomePage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://accelerashopify.vercel.app/#webpage",
+        url: "https://accelerashopify.vercel.app",
+        name: "Accelera Canada | Official Online Tire Store",
+        description:
+          "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
+        inLanguage: "en",
+        breadcrumb: {
+          "@id": "https://accelerashopify.vercel.app/#breadcrumb",
+        },
+        isPartOf: {
+          "@id": "https://accelerashopify.vercel.app/#website",
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://accelerashopify.vercel.app/#breadcrumb",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://accelerashopify.vercel.app",
+          },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://accelerashopify.vercel.app/#website",
+        url: "https://accelerashopify.vercel.app",
+        name: "Accelera Canada Official Store",
+        inLanguage: "en",
+        publisher: {
+          "@id": "https://accelerashopify.vercel.app/#organization",
+        },
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://accelerashopify.vercel.app/#organization",
+        name: "Accelera Canada",
+        url: "https://accelerashopify.vercel.app",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://accelerashopify.vercel.app/logo.png", // ✅ 確保為實際英文版 logo 圖
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="">
+    <div className="w-full overflow-hidden">
+      <Script
+        id="structured-data-home"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <HeroSlider />
-      <div className="bg-[#0f0f0f] p-8">
+      {/* <div className="bg-[#0f0f0f] p-8">
         <ThreeItemGrid />
-      </div>
-      <Carousel />
+      </div> */}
+      <section className="section-intro ">
+        <AutoInfiniteCarousel />
+      </section>
 
-      <ScrollSlider />
+      <section className="section-feature bg-[#F0F1F2] flex flex-row items-center  py-20">
+        <div className="left-side w-[25%]"></div>
+        <div className="title flex  w-[75%] flex-col">
+          <h2 className="text-[48px] mb-5 font-bold text-[#1D1D1F]">
+            ALL KINDS OF TIRES
+          </h2>
 
+          <Carousel />
+        </div>
+      </section>
       <AccordionHover />
-      <GridHover />
+      <div className="   w-full overflow-hidden">
+        <ScrollSlider />
+      </div>
+
       <SliderCard />
+
+      <GridHover />
+      <section className="outro h-screen flex  flex-col lg:flex-row items-center justify-center bg-black text-white">
+        <h1 className="text-3xl font-bold text-center px-3 sm:px-10 max-w-3xl">
+          Where Performance Meets Precision
+        </h1>
+
+        <Marquee
+          speed={30} // 調整速度
+        >
+          <Image
+            src="/images/social_media/NC0wv3luzKq8LTfh1YEk.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/GIVedMc5u6mgWSn2PkLX.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/dg1TllriYBhKV6v0kbwG.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/agu1m0gx5zkxT66qGD5i.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/4dCMzKG1NWCl2hgWp5tC.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/NC0wv3luzKq8LTfh1YEk.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/GIVedMc5u6mgWSn2PkLX.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/dg1TllriYBhKV6v0kbwG.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/agu1m0gx5zkxT66qGD5i.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/4dCMzKG1NWCl2hgWp5tC.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/yns5kpUUqHDmLYMa3hff.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/xZ95O1couXrIYqd83Cpk.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/rMgD2GJeagXAxcXDKsva.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/NsT4z1lX0I5lxqle9UPo.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/llPSlGdE2B1yGsbGgk4p.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/JknvmdieiSOfeRyj3cvc.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/Ga2UfdgTKhMMnbTwe54T.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/9jwDKdZtMI5Gsr6FoSB9.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/NC0wv3luzKq8LTfh1YEk.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/GIVedMc5u6mgWSn2PkLX.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/dg1TllriYBhKV6v0kbwG.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/agu1m0gx5zkxT66qGD5i.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/4dCMzKG1NWCl2hgWp5tC.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/NC0wv3luzKq8LTfh1YEk.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/GIVedMc5u6mgWSn2PkLX.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/dg1TllriYBhKV6v0kbwG.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/agu1m0gx5zkxT66qGD5i.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/4dCMzKG1NWCl2hgWp5tC.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/yns5kpUUqHDmLYMa3hff.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/xZ95O1couXrIYqd83Cpk.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/rMgD2GJeagXAxcXDKsva.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/NsT4z1lX0I5lxqle9UPo.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/llPSlGdE2B1yGsbGgk4p.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/JknvmdieiSOfeRyj3cvc.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/Ga2UfdgTKhMMnbTwe54T.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+          <Image
+            src="/images/social_media/9jwDKdZtMI5Gsr6FoSB9.webp"
+            alt=""
+            placeholder="empty"
+            loading="lazy"
+            width={400}
+            height={400}
+            className=" w-[200px]"
+          ></Image>
+        </Marquee>
+      </section>
     </div>
   );
 }

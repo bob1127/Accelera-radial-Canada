@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export async function Carousel() {
   const products = await getCollectionProducts({
-    collection: "hidden-homepage-carousel",
+    collection: "PHI",
   });
 
   if (!products?.length) return null;

@@ -128,9 +128,9 @@ export default function AwardsHoverComponent() {
   }, []);
 
   return (
-    <div className="relative bg-[#e3e3db] font-sans">
-      <section className="flex justify-center items-center h-screen w-full px-4">
-        <h1 className="uppercase text-[12vw] md:text-[72px] font-extrabold leading-[0.9] tracking-tight text-center">
+    <div className="relative bg-[#F0F1F2] font-sans">
+      <section className="flex justify-center items-center w-full px-4">
+        <h1 className="uppercase text-[12vw] text-black md:text-[72px] font-extrabold leading-[0.9] tracking-tight text-center">
           Intro
         </h1>
       </section>
@@ -143,7 +143,7 @@ export default function AwardsHoverComponent() {
           {awards.map((award, i) => (
             <div key={i} className="award h-[8vh] md:h-[80px] overflow-hidden">
               <div className="award-wrapper relative h-[8vh] md:h-[240px] -translate-y-[40vh] md:-translate-y-[160px] will-change-transform">
-                <div className="award-name flex justify-between items-center h-[8vh] md:h-[80px] px-4 border-b border-black bg-[#e3e3db] text-black cursor-pointer">
+                <div className="award-name flex justify-between items-center h-[8vh] md:h-[80px] px-4 border-b border-black bg-white text-black cursor-pointer">
                   <h1 className="!text-[16px] md:text-2xl font-bold uppercase">
                     {award.name}
                   </h1>
@@ -159,7 +159,7 @@ export default function AwardsHoverComponent() {
                     {award.label}
                   </h1>
                 </div>
-                <div className="award-name flex justify-between items-center h-[8vh] md:h-[80px] px-4 border-b border-black bg-[#e3e3db] text-black cursor-pointer">
+                <div className="award-name flex justify-between items-center h-[8vh] md:h-[80px] px-4 border-b border-black bg-white text-black cursor-pointer">
                   <h1 className="!text-[16px] md:text-2xl font-bold uppercase">
                     {award.name}
                   </h1>
@@ -172,17 +172,6 @@ export default function AwardsHoverComponent() {
           ))}
         </div>
       </section>
-
-      <section className="flex justify-center items-center h-screen w-full px-4">
-        <h1 className="uppercase text-[12vw] md:text-[72px] font-extrabold leading-[0.9] tracking-tight text-center">
-          Outro
-        </h1>
-      </section>
-
-      <div
-        ref={previewRef}
-        className="fixed bottom-4 right-4 w-[90vw] h-[40vh] md:w-[30%] md:h-[30%] z-50 pointer-events-none"
-      ></div>
     </div>
   );
 }

@@ -259,14 +259,21 @@ export type ShopifyProductRecommendationsOperation = {
     productId: string;
   };
 };
-
-export type ShopifyProductsOperation = {
+export interface ShopifyProductsOperation {
   data: {
-    products: Connection<ShopifyProduct>;
+    products: {
+      edges: { node: ShopifyProduct }[];
+      pageInfo: {
+        hasNextPage: boolean;
+        endCursor: string | null;
+      };
+    };
   };
   variables: {
     query?: string;
     reverse?: boolean;
     sortKey?: string;
+    first?: number;
+    after?: string;
   };
-};
+}

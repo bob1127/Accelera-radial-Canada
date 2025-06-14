@@ -77,7 +77,7 @@ export default async function ProductPage(props: {
 
   return (
     <ProductProvider>
-      <div className="bg-[#1a1a1a]">
+      <div className="bg-[#ffffff]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -85,7 +85,7 @@ export default async function ProductPage(props: {
           }}
         />
         <div className="mx-auto  py-14 sm:py-20 max-w-(--breakpoint-2xl) px-4">
-          <div className="flex flex-col rounded-lg border border-neutral-200 bg-[#1a1a1a] p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 ">
+          <div className="flex flex-col rounded-lg border border-neutral-200 bg-[#ffffff] p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 ">
             <div className="h-full w-full basis-full lg:basis-4/6">
               <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
                 {/* 左側：Gallery */}

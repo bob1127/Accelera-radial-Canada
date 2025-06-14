@@ -73,16 +73,26 @@ export default function HighlightGrid() {
   }, []);
 
   return (
-    <div className="bg-[#0f0f0f] text-white font-mono min-h-screen">
-      <nav className="fixed top-0 w-full p-4 flex justify-between items-center border-b border-white/20 z-10">
-        <p className="uppercase text-sm font-medium">Codegrid</p>
-        <p className="opacity-30 text-sm">/ Experiment 448</p>
-      </nav>
-
+    <div className="bg-[#0f0f0f] pt-[100px] text-white font-mono">
       <div
         ref={containerRef}
-        className="relative w-full min-h-screen flex items-center justify-center py-[25vh]"
+        className="relative flex-col w-full flex items-center justify-center "
       >
+        <div className="title flex flex-col justify-center  items-center">
+          <h2 className="text-gray-100 text-[45px] font-bold">OUR BEGINNING</h2>
+          <p className="text-gray-100 leading-relaxed max-w-[1000px] text-center">
+            PT. Elangperdana Tyre Industry started in producing its ﬁrst tyre in
+            year 1996. The factory is located at a unique landscape near
+            mountain side in Sub - County Citeureup, Bogor city, three
+            kilometers north of the Sentul International Circuit with a total
+            area of 208,000 sqm of land. Well planned factory design combined
+            with the latest technology machinery and equipments from Europe is
+            our basic asset in making our tires. Safety Concern, Innovation,
+            Creativity, and Customer Orientation are factors which we have and
+            by combining these factors we produce our tires in order to meet
+            your expectation for a tire.
+          </p>
+        </div>
         <div className="grid w-[90%] border border-white/20">
           <div className="flex md:flex-row flex-col border-b border-white/20">
             <div className="grid-item flex-1 flex justify-center items-center border-r md:border-r border-white/20 py-16">

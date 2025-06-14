@@ -77,6 +77,9 @@ export async function shopifyFetch<T>({
   query: string;
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
+    console.log('🔗 Endpoint:', endpoint);
+  console.log('🔑 Token starts with:', key?.slice(0, 5));
+  console.log('📦 Query (short):', query.slice(0, 60) + '...');
   try {
     const result = await fetch(endpoint, {
       method: 'POST',
@@ -84,7 +87,7 @@ export async function shopifyFetch<T>({
         'Content-Type': 'application/json',
         'X-Shopify-Storefront-Access-Token': key,
         ...headers
-      },
+      }, 
       body: JSON.stringify({
         ...(query && { query }),
         ...(variables && { variables })
@@ -436,27 +439,52 @@ export async function getProductRecommendations(
 export async function getProducts({
   query,
   reverse,
-  sortKey
+  sortKey,
+  first = 15,
+  after
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
+  first?: number;
+  after?: string;
+}): Promise<{
+  products: Product[];
+  pageInfo: {
+    hasNextPage: boolean;
+    endCursor: string | null;
+  };
+}> {
   'use cache';
   cacheTag(TAGS.products);
   cacheLife('days');
+  console.log('🟡 getProducts: Sending query to Shopify...');
+  console.log('🟡 Variables:', { query, reverse, sortKey, first, after });
 
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     variables: {
       query,
       reverse,
-      sortKey
+      sortKey,
+      first,
+      after
     }
   });
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+  const connection = res.body.data.products;
+  const edges = connection?.edges ?? [];
+
+  return {
+    products: reshapeProducts(edges.map(edge => edge.node)),
+    pageInfo: {
+      hasNextPage: connection.pageInfo.hasNextPage,
+      endCursor: connection.pageInfo.endCursor
+    }
+  };
 }
+
+
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
 export async function revalidate(req: NextRequest): Promise<NextResponse> {

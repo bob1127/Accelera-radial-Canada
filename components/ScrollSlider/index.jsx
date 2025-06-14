@@ -133,7 +133,7 @@ export default function EthnocareScrollAnimation() {
   return (
     <div
       ref={containerRef}
-      className="w-screen h-[900vh] bg-black text-white font-sans overflow-hidden"
+      className="w-full  h-[900vh] bg-black text-white font-sans "
     >
       <section
         id="steps"

@@ -1,8 +1,9 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FiArrowRight, FiChevronDown } from "react-icons/fi";
-
 export const ShiftingDropDown = () => {
   return (
     <div className="flex h-[30px]   pt-[] text-neutral-200 justify-center">
@@ -163,10 +164,14 @@ const Products = () => {
       <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-4">
         <div className="flex bg-neutral-800 hover:border  rounded-md overflow-hidden shadow-md">
           <div className="w-1/2">
-            <img
+            <Image
               src="/images/TireCategories/OMIKRON.png"
               className="w-full h-full object-contain"
               alt="Omikron Tire"
+              loading="lazy"
+              akt=""
+              width={1920}
+              height={700}
             />
           </div>
           <div className="w-1/2 flex flex-col justify-center items-center p-4">
@@ -313,10 +318,13 @@ const Products = () => {
       </div>
 
       <div className="flex justify-end mt-4">
-        <button className="flex items-center gap-1 text-sm text-indigo-300 hover:underline">
+        <Link
+          href="/search/phi"
+          className="flex items-center gap-1 text-sm text-indigo-300 hover:underline"
+        >
           <span>View more</span>
           <FiArrowRight />
-        </button>
+        </Link>
       </div>
     </div>
   );

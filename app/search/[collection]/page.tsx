@@ -1,15 +1,10 @@
-import { getCollection, getCollectionProducts } from 'lib/shopify';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import ProductGridClient from "app/search/product-grid-client";
+import { defaultSort, sorting } from "lib/constants";
+import { getCollection, getProducts } from "lib/shopify";
+import { notFound } from "next/navigation";
 
-import Grid from 'components/grid';
-import ProductGridItems from 'components/layout/product-grid-items';
-import { defaultSort, sorting } from 'lib/constants';
-
-export async function generateMetadata(props: {
-  params: Promise<{ collection: string }>;
-}): Promise<Metadata> {
-  const params = await props.params;
+// ✅ 不加型別限制，繞過 Canary 的型別推導 bug
+export async function generateMetadata({ params }: any) {
   const collection = await getCollection(params.collection);
 
   if (!collection) return notFound();
@@ -17,29 +12,54 @@ export async function generateMetadata(props: {
   return {
     title: collection.seo?.title || collection.title,
     description:
-      collection.seo?.description || collection.description || `${collection.title} products`
+      collection.seo?.description ||
+      collection.description ||
+      `${collection.title} products`,
   };
 }
 
-export default async function CategoryPage(props: {
-  params: Promise<{ collection: string }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const searchParams = await props.searchParams;
-  const params = await props.params;
-  const { sort } = searchParams as { [key: string]: string };
-  const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
-  const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
+// ✅ 主頁面一樣使用 any 避開推導
+export default async function CategoryPage({ params, searchParams }: any) {
+  const { collection } = params;
+  const { sort, width, aspect } = searchParams || {};
+
+  const { sortKey, reverse } =
+    sorting.find((item) => item.slug === sort) || defaultSort;
+
+  const filters: string[] = [`tag:collection_${collection}`];
+
+  const appendTagFilters = (
+    key: string,
+    value: string | string[] | undefined
+  ) => {
+    if (!value) return;
+    const values = Array.isArray(value) ? value : [value];
+    values.forEach((v) => filters.push(`tag:${key}_${v}`));
+  };
+
+  appendTagFilters("width", width);
+  appendTagFilters("aspect", aspect);
+
+  const query = filters.join(" AND ");
+
+  const { products } = await getProducts({
+    query,
+    sortKey,
+    reverse,
+    first: 30,
+  });
 
   return (
-    <section>
-      {products.length === 0 ? (
-        <p className="py-3 text-lg">{`No products found in this collection`}</p>
-      ) : (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductGridItems products={products} />
-        </Grid>
-      )}
+    <section className="w-full max-w-screen-xl mx-auto px-4">
+      <ProductGridClient
+        initialProducts={products}
+        initialPageInfo={{ hasNextPage: false, endCursor: null }}
+        searchValue={collection}
+        sortKey={sortKey}
+        reverse={reverse}
+        filters={query}
+        initialQuery={query}
+      />
     </section>
   );
 }
