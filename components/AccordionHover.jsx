@@ -135,14 +135,14 @@ export default function AwardsHoverComponent() {
         </h1>
       </section>
 
-      <section className="min-h-screen w-full px-4">
+      <section className=" h-auto mb-20 sm:mb-0 sm:min-h-screen w-full px-4">
         <p className="text-lg md:text-xl font-bold uppercase p-5">
           Recognition and awards
         </p>
         <div ref={listRef} className="border-t border-black">
           {awards.map((award, i) => (
             <div key={i} className="award h-[8vh] md:h-[80px] overflow-hidden">
-              <div className="award-wrapper relative h-[8vh] md:h-[240px] -translate-y-[40vh] md:-translate-y-[160px] will-change-transform">
+              <div className="award-wrapper relative h-[8vh] md:h-[240px] -translate-y-[80px] md:-translate-y-[160px] will-change-transform">
                 <div className="award-name flex justify-between items-center h-[8vh] md:h-[80px] px-4 border-b border-black bg-white text-black cursor-pointer">
                   <h1 className="!text-[16px] md:text-2xl font-bold uppercase">
                     {award.name}
