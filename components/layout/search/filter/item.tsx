@@ -27,26 +27,21 @@ function PathFilterItemComponent({
   const newParams = new URLSearchParams(searchParams.toString());
   newParams.delete("q");
 
-  const DynamicTag = active ? "p" : Link;
+  const href = createUrl(item.path, newParams);
 
   return (
-    <li
-      className={clsx(
-        "text-black dark:text-white",
-        listType === "row" ? "mr-2 mb-2" : "mt-2 flex"
-      )}
-    >
-      <DynamicTag
-        href={createUrl(item.path, newParams)}
+    <li className="mr-2 mb-2 mt-3">
+      <Link
+        href={href}
         className={clsx(
-          "text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100",
-          {
-            underline: active,
-          }
+          "px-4 py-2 text-sm rounded border transition-colors duration-200",
+          active
+            ? "bg-black text-white border-black"
+            : "bg-white text-black border-gray-300 hover:bg-gray-100"
         )}
       >
         {item.title}
-      </DynamicTag>
+      </Link>
     </li>
   );
 }
@@ -61,7 +56,7 @@ function SortOrFilterItemComponent({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  if (!item.slug) return null; // 防止 null crash（針對 SortFilterItem）
+  if (!item.slug) return null;
 
   const [key, value] = useMemo<[string, string]>(() => {
     return item.slug!.includes("_")
@@ -73,27 +68,22 @@ function SortOrFilterItemComponent({
 
   const newParams = new URLSearchParams(searchParams.toString());
   newParams.set(key, value);
-
   const href = createUrl(pathname, newParams);
 
   return (
-    <li
-      className={clsx(
-        "text-sm text-black dark:text-white",
-        listType === "row" ? "mr-2 mb-2" : "mt-2 flex"
-      )}
-    >
-      {isActive ? (
-        <p className="underline underline-offset-4">{item.title}</p>
-      ) : (
-        <Link
-          prefetch={false}
-          href={href}
-          className="hover:underline hover:underline-offset-4"
-        >
-          {item.title}
-        </Link>
-      )}
+    <li className="mr-2 mb-2 mt-3">
+      <Link
+        prefetch={false}
+        href={href}
+        className={clsx(
+          "px-4 py-2 text-sm rounded border transition-colors duration-200",
+          isActive
+            ? "bg-black text-white border-black"
+            : "bg-white text-black border-gray-300 hover:bg-gray-100"
+        )}
+      >
+        {item.title}
+      </Link>
     </li>
   );
 }

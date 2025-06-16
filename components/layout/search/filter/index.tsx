@@ -36,7 +36,7 @@ export default function FilterList({
       <ul
         className={clsx(
           "hidden md:flex w-full flex-wrap",
-          isSortList ? "flex-col" : "flex-row gap-x-4"
+          isSortList ? "flex-col" : "flex-row gap-2"
         )}
       >
         <Suspense fallback={null}>
