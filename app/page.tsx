@@ -87,9 +87,9 @@ export default function HomePage() {
         <AutoInfiniteCarousel />
       </section>
 
-      <section className="section-feature bg-[#F0F1F2] flex flex-row items-center  py-20">
-        <div className="left-side w-[25%]"></div>
-        <div className="title flex  w-[75%] flex-col">
+      <section className="section-feature bg-[#F0F1F2] px-8 lg:px-0 flex flex-row items-center  py-20">
+        <div className="left-side hidden lg:block md:w-[25%]"></div>
+        <div className="title flex  w-full lg:w-[75%] flex-col">
           <h2 className="text-[48px] mb-5 font-bold text-[#1D1D1F]">
             ALL KINDS OF TIRES
           </h2>

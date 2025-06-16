@@ -69,13 +69,13 @@ export default function CarouselTabsWrapper({
             {categorizedProducts[activeTab]?.map((product, i) => (
               <li
                 key={`${product.handle}-${i}`}
-                className="group snap-start h-[500px] flex-none w-full max-w-[400px] p-8 md:w-2/3 aspect-[3/5.5] bg-white overflow-hidden shadow-md"
+                className="group snap-start  h-[420px] md:h-[500px] flex-none w-full max-w-[400px] p-0 lg:p-8 md:w-2/3 aspect-[3/5.5] bg-white overflow-hidden shadow-md"
               >
                 <Link
                   href={`/product/${product.handle}`}
                   className="block h-full"
                 >
-                  <div className="relative w-full group-hover:scale-[.9] duration-500 scale-[.8] h-48 md:h-[330px]">
+                  <div className="relative w-full group-hover:scale-[.9] duration-500 scale-[.8] h-[330px] md:h-[360px]">
                     <Image
                       src={product.featuredImage.url}
                       alt={product.title}

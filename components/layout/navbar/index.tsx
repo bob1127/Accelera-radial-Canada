@@ -1,36 +1,40 @@
 import CartModal from "components/cart/modal";
-import LogoSquare from "components/logo-square";
 import { getMenu } from "lib/shopify";
 import { Menu } from "lib/shopify/types";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { ShiftingDropDown } from "../../ShiftingDropDown.jsx";
 import MobileMenu from "./mobile-menu";
 import Search, { SearchSkeleton } from "./search";
 const { SITE_NAME } = process.env;
-
 export async function Navbar() {
   const menu = await getMenu("next-js-frontend-header-menu");
 
   return (
     <nav className=" flex flex-col items-center justify-between  fixed w-full z-20 top-0 ">
-      <div className="top-nav bg-[#ef1905]  p-1   w-full">
-        <div className="block flex-none md:hidden">
-          <Suspense fallback={null}>
-            <MobileMenu menu={menu} />
-          </Suspense>
-        </div>
+      <div className="top-nav bg-gradient-to-r from-[#ce0000]  to-[#ff0000] px-8 p-1 py-5 w-full">
         <div className="flex w-full items-center">
+          <div className="block flex-none md:hidden">
+            <Suspense fallback={null}>
+              <MobileMenu menu={menu} />
+            </Suspense>
+          </div>
           <div className="flex w-full md:w-1/3">
             <Link
               href="/"
               prefetch={true}
               className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
             >
-              <LogoSquare />
-              {/* <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-                {SITE_NAME}
-              </div> */}
+              <Image
+                src="/images/logo/logo-accelera-white.png"
+                placeholder="empty"
+                priority
+                alt="logo"
+                width={200}
+                height={80}
+                className="max-w-[220px]"
+              ></Image>
             </Link>
             {menu.length ? (
               <ul className="hidden gap-6 text-sm md:flex md:items-center">
@@ -59,22 +63,33 @@ export async function Navbar() {
           </div>
         </div>
       </div>
-      <div className="bottom-nav bg-white p-4 w-full">
-        <div className=" top-[0px] justify-center flex">
+      <div
+        className={`
+          hidden sm:block
+    bottom-nav 
+    w-full 
+    p-2 
+    bg-white/30 
+    backdrop-blur-md 
+    transition-all 
+    duration-300 
+    hover:bg-white
+  `}
+      >
+        <div className="flex justify-center">
           <ShiftingDropDown />
-          <div className="link-wrap ml-2 mt-1">
+          <div className="link-wrap ml-2 mt-1 flex gap-2">
             <Link
               href="/about"
-              className="text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100 rounded-full duration-300 px-4 py-2 text-[14px]"
+              className="text-neutral-400 hover:bg-neutral-800 hover:text-white rounded-full duration-300 px-4 ㄅㄦ text-sm"
             >
               About
             </Link>
-
             <Link
               href="/cart"
-              className="text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100 rounded-full duration-300 px-4 py-2 text-[14px]"
+              className="text-neutral-400 hover:bg-neutral-800 hover:text-white rounded-full duration-300 px-4 ㄅㄦ text-sm"
             >
-              cart
+              Cart
             </Link>
           </div>
         </div>
