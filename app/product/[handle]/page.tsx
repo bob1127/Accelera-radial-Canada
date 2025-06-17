@@ -84,10 +84,20 @@ export default async function ProductPage(props: {
             __html: JSON.stringify(productJsonLd),
           }}
         />
-        <div className="mx-auto  py-14 sm:py-20 max-w-(--breakpoint-2xl) px-4">
-          <div className="flex flex-col rounded-lg border border-neutral-200 bg-[#ffffff] p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 ">
-            <div className="h-full w-full basis-full lg:basis-4/6">
-              <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
+        <div className="mx-auto  py-14 sm:py-20 max-w-(--breakpoint-3xl) px-4">
+          <div className="flex flex-col rounded-lg border border-neutral-200 bg-[#ffffff] p-8 md:p-12 lg:flex-row mx-auto max-w-[1920px] items-center justify-center lg:gap-8 dark:border-neutral-800 ">
+            <div className="h-full w-full  mt-20 basis-full lg:basis-4/6">
+              <div className="mb-6 text-sm  text-gray-500">
+                <Link href="/" className="hover:underline">
+                  首頁
+                </Link>{" "}
+                /{" "}
+                <Link href="/search" className="hover:underline">
+                  商品列表
+                </Link>{" "}
+                / <span className="text-gray-700">{product.title}</span>
+              </div>
+              <div className="flex flex-col gap-6 pb-20 pt-10 lg:flex-row lg:gap-8">
                 {/* 左側：Gallery */}
                 <div className="w-full lg:w-2/3">
                   <Suspense

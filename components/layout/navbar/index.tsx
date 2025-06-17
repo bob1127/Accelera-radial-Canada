@@ -1,7 +1,6 @@
 import CartModal from "components/cart/modal";
 import { getMenu } from "lib/shopify";
 import { Menu } from "lib/shopify/types";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { ShiftingDropDown } from "../../ShiftingDropDown.jsx";
@@ -26,15 +25,13 @@ export async function Navbar() {
               prefetch={true}
               className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
             >
-              <Image
+              <img
                 src="/images/logo/logo-accelera-white.png"
-                placeholder="empty"
-                priority
                 alt="logo"
                 width={200}
                 height={80}
                 className="max-w-[220px]"
-              ></Image>
+              ></img>
             </Link>
             {menu.length ? (
               <ul className="hidden gap-6 text-sm md:flex md:items-center">

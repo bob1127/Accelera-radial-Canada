@@ -6,7 +6,6 @@ import AutoInfiniteCarousel from "../components/AutoInfiniteCarousel";
 import { Carousel } from "../components/Carousel/Carousel";
 import GridHover from "../components/GridHover";
 import HeroSlider from "../components/HeroSlideContact/page";
-import ScrollSlider from "../components/ScrollSlider/index";
 import SliderCard from "../components/SliderCard/index";
 
 export const metadata = {
@@ -98,9 +97,9 @@ export default function HomePage() {
         </div>
       </section>
       <AccordionHover />
-      <div className="   w-full overflow-hidden">
+      {/* <div className="   w-full overflow-hidden">
         <ScrollSlider />
-      </div>
+      </div> */}
 
       <SliderCard />
 
@@ -110,9 +109,7 @@ export default function HomePage() {
           Where Performance Meets Precision
         </h1>
 
-        <Marquee
-          speed={30} // 調整速度
-        >
+        <Marquee>
           <Image
             src="/images/social_media/NC0wv3luzKq8LTfh1YEk.webp"
             alt=""

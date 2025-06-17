@@ -50,7 +50,7 @@ export default async function CategoryPage({ params, searchParams }: any) {
   });
 
   return (
-    <section className="w-full max-w-screen-xl mx-auto px-4">
+    <section className="w-full max-w-[1400px]  px-4">
       <ProductGridClient
         initialProducts={products}
         initialPageInfo={{ hasNextPage: false, endCursor: null }}

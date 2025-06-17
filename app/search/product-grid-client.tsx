@@ -115,7 +115,7 @@ export default function ProductGridClient({
             {pageInfo.hasNextPage && (
               <div className="mt-8 text-center">
                 <button
-                  className="px-6 py-2  disabled:opacity-50"
+                  className="px-6 py-2 text-white bg-slate-800  disabled:opacity-50"
                   onClick={loadMore}
                   disabled={loading}
                 >
