@@ -16,6 +16,8 @@ export default function ProductGridClient() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!collection) return;
+
     const fetchFiltered = async () => {
       setLoading(true);
 
@@ -41,7 +43,7 @@ export default function ProductGridClient() {
         const { products } = await res.json();
         setProducts(products);
       } catch (err) {
-        console.error("Fetch failed:", err);
+        console.error("Failed to fetch products:", err);
         setProducts([]);
       } finally {
         setLoading(false);
