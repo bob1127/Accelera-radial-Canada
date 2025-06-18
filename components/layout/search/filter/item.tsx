@@ -8,8 +8,7 @@ import type {
   SortFilterItem,
 } from "lib/constants";
 import { createUrl } from "lib/utils";
-import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
 type LayoutType = "row" | "column";
@@ -22,17 +21,24 @@ function PathFilterItemComponent({
   listType?: LayoutType;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const active = pathname === item.path;
+
   const newParams = new URLSearchParams(searchParams.toString());
   newParams.delete("q");
 
   const href = createUrl(item.path, newParams);
 
+  const handleClick = () => {
+    router.push(href);
+    router.refresh(); // ✅ 強制刷新頁面
+  };
+
   return (
     <li className="mr-2 mb-2 mt-3">
-      <Link
-        href={href}
+      <button
+        onClick={handleClick}
         className={clsx(
           "px-4 py-2 text-sm rounded border transition-colors duration-200",
           active
@@ -41,7 +47,7 @@ function PathFilterItemComponent({
         )}
       >
         {item.title}
-      </Link>
+      </button>
     </li>
   );
 }
@@ -54,6 +60,7 @@ function SortOrFilterItemComponent({
   listType?: LayoutType;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   if (!item.slug) return null;
@@ -70,11 +77,15 @@ function SortOrFilterItemComponent({
   newParams.set(key, value);
   const href = createUrl(pathname, newParams);
 
+  const handleClick = () => {
+    router.push(href);
+    router.refresh(); // ✅ 同樣強制刷新
+  };
+
   return (
     <li className="mr-2 mb-2 mt-3">
-      <Link
-        prefetch={false}
-        href={href}
+      <button
+        onClick={handleClick}
         className={clsx(
           "px-4 py-2 text-sm rounded border transition-colors duration-200",
           isActive
@@ -83,7 +94,7 @@ function SortOrFilterItemComponent({
         )}
       >
         {item.title}
-      </Link>
+      </button>
     </li>
   );
 }

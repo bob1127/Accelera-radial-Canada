@@ -1,4 +1,3 @@
-// app/search/[collection]/page.tsx
 import ProductGridClient from "components/ProductGridClient";
 
 export default function CategoryPage() {
