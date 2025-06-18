@@ -4,15 +4,14 @@ import Grid from "components/grid";
 import { GridTileImage } from "components/grid/tile";
 import type { Product } from "lib/shopify/types";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ProductGridClient({
-  collection,
-}: {
-  collection: string;
-}) {
+export default function ProductGridClient() {
+  const params = useParams();
   const searchParams = useSearchParams();
+  const collection = params.collection as string;
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,18 +35,13 @@ export default function ProductGridClient({
         const res = await fetch("/api/products", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            query,
-            sortKey,
-            reverse,
-            first: 30,
-          }),
+          body: JSON.stringify({ query, sortKey, reverse, first: 30 }),
         });
 
         const { products } = await res.json();
         setProducts(products);
       } catch (err) {
-        console.error("Failed to fetch products:", err);
+        console.error("Fetch failed:", err);
         setProducts([]);
       } finally {
         setLoading(false);
