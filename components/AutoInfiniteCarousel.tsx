@@ -15,6 +15,9 @@ const images = [
   "/images/X-GRIPN.webp",
   "/images/MT01.webp",
   "/images/PHI-2.webp",
+  "/images/4ac2b10ba5d72f873d99147345d9b5f5-2.png",
+  "/images/IOTA-STA68.png",
+  "/images/ecoplush.png",
 ];
 
 export default function SwiperMotionCarousel() {

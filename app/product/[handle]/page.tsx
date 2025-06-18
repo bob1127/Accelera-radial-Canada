@@ -89,11 +89,11 @@ export default async function ProductPage(props: {
             <div className="h-full w-full  mt-20 basis-full lg:basis-4/6">
               <div className="mb-6 text-sm  text-gray-500">
                 <Link href="/" className="hover:underline">
-                  首頁
+                  Home
                 </Link>{" "}
                 /{" "}
                 <Link href="/search" className="hover:underline">
-                  商品列表
+                  All Peoducts
                 </Link>{" "}
                 / <span className="text-gray-700">{product.title}</span>
               </div>

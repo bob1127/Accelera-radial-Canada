@@ -25,11 +25,11 @@ export default function Search() {
         ref={inputRef}
         type="text"
         name="q"
-        placeholder="Search..."
+        placeholder="Search...ex:iota phi"
         autoComplete="off"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="text-md w-full rounded-lg border bg-white px-4 py-2 pr-10 text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
+        className="text-md w-full rounded-lg border bg-white px-4 py-2 pr-10 text-black placeholder:text-neutral-200 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
       />
       <button
         type="submit"

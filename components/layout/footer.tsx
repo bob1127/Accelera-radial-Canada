@@ -1,70 +1,76 @@
-import Link from 'next/link';
+"use client";
 
-import FooterMenu from 'components/layout/footer-menu';
-import LogoSquare from 'components/logo-square';
-import { getMenu } from 'lib/shopify';
-import { Suspense } from 'react';
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
-const { COMPANY_NAME, SITE_NAME } = process.env;
+const currentYear = new Date().getFullYear();
+const copyrightDate = currentYear > 2025 ? `2025-${currentYear}` : "2025";
 
-export default async function Footer() {
-  const currentYear = new Date().getFullYear();
-  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const skeleton = 'w-full h-6 animate-pulse rounded-sm bg-neutral-200 dark:bg-neutral-700';
-  const menu = await getMenu('next-js-frontend-footer-menu');
-  const copyrightName = COMPANY_NAME || SITE_NAME || '';
-
+export default function Footer() {
   return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        <div>
-          <Link className="flex items-center gap-2 text-black md:pt-1 dark:text-white" href="/">
-            <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
+    <footer className="relative text-sm text-neutral-500 dark:text-neutral-400 overflow-hidden">
+      <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh]">
+        <Image
+          src="/images/footer/WhatsApp_Image_2025-05-23_at_3.13.42_PM.png"
+          alt="footer background"
+          fill
+          className="object-cover"
+          priority={false}
+          sizes="(max-width: 768px) 100vw, 100vw"
+        />
+        <div className="txt absolute z-50 top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2">
+          <h2 className="text-white font-extrabold text-[58px]">TIRES STORE</h2>
+          <Link href="/search">
+            <div className="bg-white text-slate-800 text-center text-[16px] px-4 py-2">
+              {" "}
+              GO STORE
+            </div>
           </Link>
         </div>
-        <Suspense
-          fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-            </div>
-          }
-        >
-          <FooterMenu menu={menu} />
-        </Suspense>
-        <div className="md:ml-auto">
-          <a
-            className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
-            aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
-          >
-            <span className="px-3">▲</span>
-            <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
-            <span className="px-3">Deploy</span>
-          </a>
-        </div>
+        <div className="mask absolute top-0 left-0 bg-black opacity-50 w-full h-full z-40"></div>
       </div>
-      <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
-          <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
-          </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>
-            <a href="https://github.com/vercel/commerce">View the source</a>
-          </p>
-          <p className="md:ml-auto">
-            <a href="https://vercel.com" className="text-black dark:text-white">
-              Created by ▲ Vercel
-            </a>
-          </p>
+
+      <div className="w-[70%] flex mx-auto py-8">
+        <div className="left w-1/3 mx-3">
+          <Image
+            src="/images/Logo/footer-logo.png"
+            width={250}
+            height={60}
+            className="max-w-[150px]"
+            alt="company-logo"
+            loading="lazy"
+            placeholder="empty"
+          />
         </div>
+        <div className="middle border-t-1 mx-3 w-1/3"></div>
+        <div className="right mx-3 w-1/3"></div>
+      </div>
+
+      <div className="relative z-10 flex justify-center items-center text-center py-4">
+        <div>
+          <Link target="_blank" href="https://www.jeek-webdesign.com.tw">
+            <span className="text-[.9rem] text-gray-600">
+              Design By <b>Jeek Web Design</b>
+            </span>
+          </Link>
+          <p>© {copyrightDate} Accelera. All rights reserved.</p>
+        </div>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+          className="ml-4"
+        >
+          <Image
+            src="/images/TireCategories/Accelera-white-tire-stickers-center-4-decals.png"
+            width={250}
+            height={60}
+            className="max-w-[120px]"
+            alt="rolling tire"
+            loading="lazy"
+            placeholder="empty"
+          />
+        </motion.div>
       </div>
     </footer>
   );
