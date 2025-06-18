@@ -32,7 +32,7 @@ function PathFilterItemComponent({
 
   const handleClick = () => {
     router.push(href);
-    router.refresh(); // ✅ 強制刷新頁面
+    router.refresh();
   };
 
   return (
@@ -40,7 +40,7 @@ function PathFilterItemComponent({
       <button
         onClick={handleClick}
         className={clsx(
-          "px-4 py-2 text-sm rounded border transition-colors duration-200",
+          "cursor-pointer px-4 py-2 text-sm rounded border transition-colors duration-200",
           active
             ? "bg-black text-white border-black"
             : "bg-white text-black border-gray-300 hover:bg-gray-100"
@@ -79,7 +79,7 @@ function SortOrFilterItemComponent({
 
   const handleClick = () => {
     router.push(href);
-    router.refresh(); // ✅ 同樣強制刷新
+    router.refresh();
   };
 
   return (
@@ -87,7 +87,7 @@ function SortOrFilterItemComponent({
       <button
         onClick={handleClick}
         className={clsx(
-          "px-4 py-2 text-sm rounded border transition-colors duration-200",
+          "cursor-pointer px-4 py-2 text-sm rounded border transition-colors duration-200",
           isActive
             ? "bg-black text-white border-black"
             : "bg-white text-black border-gray-300 hover:bg-gray-100"
