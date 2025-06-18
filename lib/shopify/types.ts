@@ -267,6 +267,7 @@ export interface ShopifyProductsOperation {
         hasNextPage: boolean;
         endCursor: string | null;
       };
+      totalCount: number; // ✅ 加上這一行
     };
   };
   variables: {
@@ -277,3 +278,4 @@ export interface ShopifyProductsOperation {
     after?: string;
   };
 }
+
