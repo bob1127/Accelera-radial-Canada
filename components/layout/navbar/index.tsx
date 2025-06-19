@@ -27,7 +27,7 @@ export async function Navbar() {
               className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
             >
               <Image
-                src="/images/logo/logo-accelera-white.png"
+                src="/images/Logo/logo-accelera-white.png"
                 alt="logo"
                 width={200}
                 height={80}
