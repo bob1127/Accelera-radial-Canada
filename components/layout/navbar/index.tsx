@@ -78,13 +78,19 @@ export async function Navbar() {
           <div className="link-wrap ml-2 mt-1 flex gap-2">
             <Link
               href="/about"
-              className="text-neutral-400 hover:bg-neutral-800 hover:text-white rounded-full duration-300 px-4 ㄅㄦ text-sm"
+              className="text-neutral-400 hover:bg-neutral-800 hover:text-white rounded-full duration-300 px-4  text-sm"
             >
               About
             </Link>
             <Link
+              href="/contact"
+              className="text-neutral-400 hover:bg-neutral-800 hover:text-white rounded-full duration-300 px-4  text-sm"
+            >
+              Contact
+            </Link>
+            <Link
               href="/cart"
-              className="text-neutral-400 hover:bg-neutral-800 hover:text-white rounded-full duration-300 px-4 ㄅㄦ text-sm"
+              className="text-neutral-400 hover:bg-neutral-800 hover:text-white rounded-full duration-300 px-4  text-sm"
             >
               Cart
             </Link>

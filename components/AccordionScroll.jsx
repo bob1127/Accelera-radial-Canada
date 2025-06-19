@@ -1,8 +1,9 @@
+import { RainbowButton } from "@/components/magicui/rainbow-button";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Link from "next/link";
 import { useEffect } from "react";
-
 export default function ScrollTriggerCards() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -93,15 +94,13 @@ export default function ScrollTriggerCards() {
               <p className="text-lg translate-y-8">OUR BEGINNING</p>
             </div>
             <div className="line h-7 my-2">
-              <p className="text-lg translate-y-8">
+              <p className="text-lg text-[#eeecec] translate-y-8">
                 Take the fast lane to mastery.
               </p>
             </div>
-          </div>
-          <div className="btn">
-            <button className="py-3 px-6 text-lg text-white border-2 border-white rounded-full translate-y-8 opacity-0">
-              Get Product
-            </button>
+            <RainbowButton asChild variant="outline">
+              <Link href="/search">Get Unlimited Access</Link>
+            </RainbowButton>
           </div>
         </div>
 

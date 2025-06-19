@@ -4,7 +4,6 @@ import {
   SHOPIFY_GRAPHQL_API_ENDPOINT,
   TAGS
 } from 'lib/constants';
-import { ensureStartsWith } from 'lib/utils';
 import {
   unstable_cacheLife as cacheLife,
   unstable_cacheTag as cacheTag,
@@ -12,6 +11,7 @@ import {
 } from 'next/cache';
 import { cookies, headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { ensureStartsWith } from '../utils';
 import {
   addToCartMutation,
   createCartMutation,
