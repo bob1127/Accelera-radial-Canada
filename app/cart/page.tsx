@@ -42,16 +42,16 @@ export default function CartPage() {
         {cart.lines.map((item) => (
           <div
             key={item.merchandise.id}
-            className="flex items-center gap-4 border-b pb-4"
+            className="flex items-center bg-slate-50  rounded-lg p-5 gap-4  pb-4"
           >
             {item.merchandise.product.featuredImage?.url && (
               <div className="w-1/2">
                 <Image
                   src={item.merchandise.product.featuredImage.url}
                   alt={item.merchandise.product.title}
-                  width={80}
-                  height={80}
-                  className="object-cover max-w-[400px] rounded"
+                  width={300}
+                  height={300}
+                  className="object-cover max-w-[200px] rounded"
                 />
               </div>
             )}

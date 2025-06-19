@@ -75,9 +75,9 @@ export default function ScrollTriggerCards() {
 
       <section className="main flex flex-col items-center w-screen h-[150vh]">
         <div className="main-content absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-          <div className="logo w-[150px] h-[150px] border-2 border-white rounded-full overflow-hidden scale-0">
+          <div className="logo w-[150px] h-[150px] rounded-full overflow-hidden scale-0">
             <img
-              src="/assets/logo.JPG"
+              src="/assets/Accelera-white-tire-stickers-center-4-decals.png"
               alt="Logo"
               className="w-full h-full object-cover"
             />
@@ -128,10 +128,21 @@ export default function ScrollTriggerCards() {
         ))}
       </section>
 
-      <section className="footer h-[50vh] flex justify-center items-start">
+      <section className="footer flex-col h-[50vh] flex justify-center items-center">
         <a href="#" className="text-[4vw] text-white">
-          Link in description
+          About
         </a>
+        <p className="text-white leading-relaxed max-w-[500px] text-center tracking-wide">
+          PT. Elangperdana Tyre Industry started in producing its ﬁrst tyre in
+          year 1996. The factory is located at a unique landscape near mountain
+          side in Sub - County Citeureup, Bogor city, three kilometers north of
+          the Sentul International Circuit with a total area of 208,000 sqm of
+          land. Well planned factory design combined with the latest technology
+          machinery and equipments from Europe is our basic asset in making our
+          tires. Safety Concern, Innovation, Creativity, and Customer
+          Orientation are factors which we have and by combining these factors
+          we produce our tires in order to meet your expectation for a tire.
+        </p>
       </section>
     </div>
   );

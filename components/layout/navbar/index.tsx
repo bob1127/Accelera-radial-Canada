@@ -11,7 +11,7 @@ export async function Navbar() {
   const menu = await getMenu("next-js-frontend-header-menu");
 
   return (
-    <nav className=" flex flex-col items-center justify-between  fixed w-full z-20 top-0 ">
+    <nav className=" flex flex-col items-center justify-between  fixed w-full z-50 top-0 ">
       <div className="top-nav bg-gradient-to-r from-[#ce0000]  to-[#ff0000] px-8 p-1 py-5 w-full">
         <div className="flex w-full items-center">
           <div className="block flex-none md:hidden">
