@@ -3,7 +3,6 @@ import { getMenu } from "lib/shopify";
 import { Menu } from "lib/shopify/types";
 import Link from "next/link";
 import { Suspense } from "react";
-import Logo from "../../logo-square";
 import { ShiftingDropDown } from "../../ShiftingDropDown.jsx";
 import MobileMenu from "./mobile-menu";
 import Search, { SearchSkeleton } from "./search";
@@ -26,7 +25,13 @@ export async function Navbar() {
               prefetch={true}
               className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
             >
-              <Logo />
+              <img
+                src="/images/logo/logo-accelera-white.png"
+                alt="logo"
+                width={200}
+                height={80}
+                className="max-w-[220px]"
+              ></img>
             </Link>
             {menu.length ? (
               <ul className="hidden gap-6 text-sm md:flex md:items-center">
