@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Script from "next/script";
 import Marquee from "react-fast-marquee";
+import { WavyBackground } from "../components/ui/wavy-background";
+
 import AccordionHover from "../components/AccordionHover";
 import AutoInfiniteCarousel from "../components/AutoInfiniteCarousel";
 import { Carousel } from "../components/Carousel/Carousel";
 import GridHover from "../components/GridHover";
 import HeroSlider from "../components/HeroSlideContact/page";
 import SliderCard from "../components/SliderCard/index";
-
 export const metadata = {
   description:
     "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
@@ -102,8 +103,19 @@ export default function HomePage() {
       </div> */}
 
       <SliderCard />
-
+      <section className="relative pt-[100px]">
+        <div className="txt w-full absolute left-1/2 -translate-x-1/2 z-20">
+          <h2 className="text-[8vmin] text-center text-white  ">
+            Stability. Safety. Full Acceleration.
+          </h2>
+          <p className="text-lg md:text-lg mt- text-white font-normal inter-var text-center">
+            More Than a Tire. <br></br>It’s the Soul of Driving.
+          </p>
+        </div>
+        <WavyBackground className="absolute z-30 left-0 top-[30%] lg:top-[25%] w-screen h-full mx-auto pb-40"></WavyBackground>
+      </section>
       <GridHover />
+
       <section className="outro h-screen flex  flex-col lg:flex-row items-center justify-center bg-black text-white">
         <h1 className="text-3xl font-bold text-center px-3 sm:px-10 max-w-3xl">
           Where Performance Meets Precision

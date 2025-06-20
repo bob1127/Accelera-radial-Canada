@@ -197,8 +197,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative z-10  border-t-1 border-gray-300 bg-slate-50 flex justify-center items-center text-center py-4">
-        <div>
+      <div className="relative z-10  border-t-1 border-gray-300 bg-slate-50 flex justify-center items-center flex-col sm:flex-row text-center py-4">
+        <div className="my-5">
           <Link target="_blank" href="https://www.jeek-webdesign.com.tw">
             <span className="text-[.9rem] text-gray-600">
               Design By <b>Jeek Web Design</b>

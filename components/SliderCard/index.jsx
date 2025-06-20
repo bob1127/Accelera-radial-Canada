@@ -157,12 +157,12 @@ export default function CapsuleStickyCards() {
     {
       title: "SPEED",
       desc: "A minimalist cube home crowned with a living moss dome, merging micro-architecture with ecological design.",
-      img: "/card-img-3.webp",
+      img: "/WhatsApp_Image_2025-05-23_at_3.13.36_PM.jpg",
     },
     {
       title: "RIDE",
       desc: "This design explores an ethereal structure perched on a grassy islet, seemingly hovering above water.",
-      img: "/card-img-4.webp",
+      img: "/WhatsApp_Image_2025-05-23_at_3.13.42_PM_1.jpg",
     },
   ];
 
