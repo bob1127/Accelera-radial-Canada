@@ -2,12 +2,11 @@ import Image from "next/image";
 import Script from "next/script";
 import Marquee from "react-fast-marquee";
 import { WavyBackground } from "../components/ui/wavy-background";
-
+import HeroSlider from "../components/Slider/Slider";
 import AccordionHover from "../components/AccordionHover";
 import AutoInfiniteCarousel from "../components/AutoInfiniteCarousel";
 import { Carousel } from "../components/Carousel/Carousel";
 import GridHover from "../components/GridHover";
-import HeroSlider from "../components/HeroSlideContact/page";
 import SliderCard from "../components/SliderCard/index";
 export const metadata = {
   description:
