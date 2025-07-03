@@ -8,16 +8,30 @@ import Link from "next/link";
 import { useState } from "react";
 import { BentoGrid, BentoGridItem } from "../../components/ui/bento-grid";
 
+type Post = {
+  id: number;
+  slug: string;
+  title: {
+    rendered: string;
+  };
+  excerpt: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
+  _embedded?: {
+    [key: string]: any;
+  };
+};
+
 function extractFirstImageFromContent(html: string): string | null {
   if (!html || typeof html !== "string") return null;
-  const match = html.match(/<img[^>]+src="([^">]+)"/);
-  if (match && match[1]) {
-    return match[1]; // ✅ 回傳圖片網址字串
-  }
-  return null; // ✅ 若無匹配，回傳 null
+  const match = html.match(/<img[^>]+src="([^"]+)"/);
+  return match?.[1] || null;
 }
 
-export default function NewsClient({ posts }: { posts: any[] }) {
+export default function NewsClient({ posts }: { posts: Post[] }) {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
   const start = (currentPage - 1) * pageSize;

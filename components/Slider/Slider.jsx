@@ -70,7 +70,7 @@ const Slider = () => {
 
     content.innerHTML = `
     <div class="slide-title absolute top-[45%] left-1/2 -translate-x-1/2 text-center w-full">
-      <h1 class="flex justify-center gap-[0.2em] text-[60px]">${slideData.title}</h1>
+      <h1 class="flex justify-center gap-[0.2em] text-[90px]">${slideData.title}</h1>
     </div>
     <div class="slide-description absolute bottom-10 left-0 w-full px-10 md:w-1/3 flex flex-col gap-6 text-left">
       <p>${slideData.description}</p>
@@ -312,7 +312,7 @@ const Slider = () => {
       <div className="slider-content absolute top-0 left-0 w-full h-full select-none z-20">
         {/* 主標題 H1，靠上居中 */}
         <div className="slide-title absolute top-[45%] left-1/2 -translate-x-1/2 text-center w-full">
-          <h1 className="flex justify-center gap-[0.2em] text-[60px]">
+          <h1 className="flex justify-center gap-[0.2em] text-[90px]">
             Quiet Green
           </h1>
         </div>

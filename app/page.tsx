@@ -1,13 +1,14 @@
+import HeroSwiperSlider from "@/components/HeroSwiperSlider";
 import Image from "next/image";
 import Script from "next/script";
 import Marquee from "react-fast-marquee";
-import { WavyBackground } from "../components/ui/wavy-background";
-import HeroSlider from "../components/Slider/Slider";
 import AccordionHover from "../components/AccordionHover";
 import AutoInfiniteCarousel from "../components/AutoInfiniteCarousel";
 import { Carousel } from "../components/Carousel/Carousel";
 import GridHover from "../components/GridHover";
 import SliderCard from "../components/SliderCard/index";
+
+import { WavyBackground } from "../components/ui/wavy-background";
 export const metadata = {
   description:
     "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
@@ -69,7 +70,16 @@ export default function HomePage() {
       },
     ],
   };
+  interface Slide {
+    image: string;
+    title: string;
+  }
 
+  const slides: Slide[] = [
+    { image: "/images/index/banner/banner06.png", title: "" },
+    { image: "/images/index/banner/banner04.png", title: "" },
+    { image: "/images/index/banner/banner02.png", title: "" },
+  ];
   return (
     <div className="w-full overflow-hidden">
       <Script
@@ -78,7 +88,8 @@ export default function HomePage() {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <HeroSlider />
+      <HeroSwiperSlider slides={slides} />
+      {/* <HeroSlider /> */}
       {/* <div className="bg-[#0f0f0f] p-8">
         <ThreeItemGrid />
       </div> */}
@@ -87,8 +98,7 @@ export default function HomePage() {
       </section>
 
       <section className="section-feature bg-[#F0F1F2] px-8 lg:px-0 flex flex-row items-center  py-20">
-        <div className="left-side hidden lg:block md:w-[25%]"></div>
-        <div className="title flex  w-full lg:w-[75%] flex-col">
+        <div className="title flex  w-full lg:w-[75%] mx-auto flex-col">
           <h2 className="text-[48px] mb-5 font-bold text-[#1D1D1F]">
             ALL KINDS OF TIRES
           </h2>
