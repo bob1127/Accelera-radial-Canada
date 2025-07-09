@@ -20,16 +20,16 @@ export function GridTileImage({
   return (
     <div
       className={clsx(
-        "group relative  flex w-full items-center flex-col justify-center overflow-hidden h-[460px] rounded-lg border bg-white transition-all",
+        "group relative flex w-full items-center flex-col justify-center overflow-hidden h-[420px] rounded-lg bg-white transition-all",
         {
-          "border-2 border-none": active,
-          "border-neutral-200 dark:border-neutral-800": !active,
+          "ring-2 ring-black": active,
+          "border border-neutral-200 dark:border-neutral-800": !active,
         }
       )}
     >
       {props.src ? (
         <Image
-          className={clsx("!w-[90%]  mx-auto !h-auto", {
+          className={clsx("!w-[90%] mx-auto h-[80px]", {
             "transition duration-300 ease-in-out group-hover:scale-105":
               isInteractive,
           })}
@@ -53,14 +53,14 @@ export function GridTileImage({
         </div>
       )}
 
-      {/* Buy Now 按鈕（預設在卡片下方，hover 浮出） */}
-      <button
+      {/* Buy Now 按鈕（可視需要啟用） */}
+      {/* <button
         className={clsx(
           "absolute left-1/2 -translate-x-1/2 bottom-[-48px] opacity-0 group-hover:bottom-3 group-hover:opacity-100 transition-all duration-300 bg-black text-white text-sm px-4 py-2 rounded-full shadow-lg"
         )}
       >
         Buy Now
-      </button>
+      </button> */}
     </div>
   );
 }

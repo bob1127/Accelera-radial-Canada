@@ -11,7 +11,7 @@ export default function ProductDetailsContent({
   if (!product.descriptionHtml) return null;
 
   return (
-    <div className="mt-10 w-full rounded-lg border border-neutral-200  p-8 md:p-12 dark:border-neutral-800 bg-[#ffffff]">
+    <div className="mt-10 w-full rounded-lg s  p-2 sm:p-8 md:p-12 dark:border-neutral-800 bg-[#ffffff]">
       <ProductSwiper
         images={[
           { src: "/images/index/banner/banner05.jpg", alt: "Product 1" },

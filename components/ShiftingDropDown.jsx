@@ -348,178 +348,174 @@ const Products = () => {
   );
 };
 
-const Intro = () => {
-  return (
-    <div className="w-full px-4 max-w-screen-xl mx-auto">
-      <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <div className="flex bg-neutral-800 hover:border  rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/OMIKRON.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">
-              OMIKRON
-            </h2>
-            <span className="text-xs text-neutral-300 text-center">
-              THE EDGY ALL-TERRAIN TIRE
-            </span>
-          </div>
-        </div>
-        <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/EcoPlush.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">
-              Eco Plush
-            </h2>
-            <span className="text-xs text-neutral-300 text-center">
-              THE ECO-FRIENDLY TIRE
-            </span>
-          </div>
-        </div>
-        <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/IOTA_ST68.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">
-              IOTA ST68
-            </h2>
-            <span className="text-xs text-neutral-300 text-center">
-              THE MODERN SUV TIRE
-            </span>
-          </div>
-        </div>
-        <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/PHI.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">PHI</h2>
-            <span className="text-xs text-neutral-300 text-center">
-              THE VERSATILE TIRE
-            </span>
-          </div>
-        </div>
-        <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/X-GRIPN.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">
-              X-GRIP N
-            </h2>
-            <span className="text-xs text-neutral-300 text-center">
-              THE STUDLESS WINTER TIRE DESIGNED FOR SAFETY
-            </span>
-          </div>
-        </div>
-        <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/651SPORT.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">
-              651 SPORT
-            </h2>
-            <span className="text-xs text-neutral-300 text-center">
-              THE RACE TIRE
-            </span>
-          </div>
-        </div>
-        <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/351SPORT-GD.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">
-              351 SPORT GD
-            </h2>
-            <span className="text-xs text-neutral-300 text-center">
-              Grassroot Drift
-            </span>
-          </div>
-        </div>
-        <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/MT01.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">MT01</h2>
-            <span className="text-xs text-neutral-300 text-center">
-              THE MUD-TERRAIN TIRE
-            </span>
-          </div>
-        </div>
-        <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
-          <div className="w-1/2">
-            <img
-              src="/images/TireCategories/IOTA-EVT.png"
-              className="w-full h-full object-contain"
-              alt="Omikron Tire"
-            />
-          </div>
-          <div className="w-1/2 flex flex-col justify-center items-center p-4">
-            <h2 className="text-white font-bold text-left text-base">
-              IOTA-EVT
-            </h2>
-            <span className="text-xs text-neutral-300 text-center">
-              PERFORMANCE FOR EVERY DRIVE
-            </span>
-          </div>
-        </div>
-      </div>
+// const Intro = () => {
+//   return (
+//     <div className="w-full px-4 max-w-screen-xl mx-auto">
+//       <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-4">
+//         <div className="flex bg-neutral-800 hover:border  rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/OMIKRON.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">
+//               OMIKRON
+//             </h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               THE EDGY ALL-TERRAIN TIRE
+//             </span>
+//           </div>
+//         </div>
+//         <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/EcoPlush.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">
+//               Eco Plush
+//             </h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               THE ECO-FRIENDLY TIRE
+//             </span>
+//           </div>
+//         </div>
+//         <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/IOTA_ST68.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">
+//               IOTA ST68
+//             </h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               THE MODERN SUV TIRE
+//             </span>
+//           </div>
+//         </div>
+//         <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/PHI.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">PHI</h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               THE VERSATILE TIRE
+//             </span>
+//           </div>
+//         </div>
+//         <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/X-GRIPN.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">
+//               X-GRIP N
+//             </h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               THE STUDLESS WINTER TIRE DESIGNED FOR SAFETY
+//             </span>
+//           </div>
+//         </div>
+//         <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/651SPORT.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">
+//               651 SPORT
+//             </h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               THE RACE TIRE
+//             </span>
+//           </div>
+//         </div>
+//         <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/351SPORT-GD.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">
+//               351 SPORT GD
+//             </h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               Grassroot Drift
+//             </span>
+//           </div>
+//         </div>
+//         <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/MT01.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">MT01</h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               THE MUD-TERRAIN TIRE
+//             </span>
+//           </div>
+//         </div>
+//         <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
+//           <div className="w-1/2">
+//             <img
+//               src="/images/TireCategories/IOTA-EVT.png"
+//               className="w-full h-full object-contain"
+//               alt="Omikron Tire"
+//             />
+//           </div>
+//           <div className="w-1/2 flex flex-col justify-center items-center p-4">
+//             <h2 className="text-white font-bold text-left text-base">
+//               IOTA-EVT
+//             </h2>
+//             <span className="text-xs text-neutral-300 text-center">
+//               PERFORMANCE FOR EVERY DRIVE
+//             </span>
+//           </div>
+//         </div>
+//       </div>
 
-      <div className="flex justify-end mt-4">
-        <button className="flex items-center gap-1 text-sm text-indigo-300 hover:underline">
-          <span>View more</span>
-          <FiArrowRight />
-        </button>
-      </div>
-    </div>
-  );
-};
+//       <div className="flex justify-end mt-4">
+//         <button className="flex items-center gap-1 text-sm text-indigo-300 hover:underline">
+//           <span>View more</span>
+//           <FiArrowRight />
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
 
 const TABS = [
   {
     title: "Products",
     Component: Products,
-  },
-  {
-    title: "Intro",
-    Component: Intro,
   },
 ].map((n, idx) => ({ ...n, id: idx + 1 }));

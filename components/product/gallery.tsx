@@ -6,6 +6,7 @@ import { useProduct, useUpdateURL } from "components/product/product-context";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
+
 export function Gallery({
   images,
 }: {
@@ -48,12 +49,12 @@ export function Gallery({
   };
 
   const buttonClassName =
-    "h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center";
+    "h-10 w-10 m-2 bg-white/60 hover:bg-white rounded-full shadow-md transition-all ease-in-out flex items-center justify-center text-black/60 hover:text-black";
 
   return (
     <div className="flex w-full">
-      <form className=" sm:w-[80%] w-full xl:w-1/2 mx-auto">
-        <div className="relative aspect-[3/4] w-full sm:max-w-sm md:max-w-md lg:max-w-xl mx-auto overflow-hidden">
+      <form className="sm:w-[80%] w-full xl:w-1/2 mx-auto">
+        <div className="relative aspect-[3.9/4] w-full sm:max-w-sm md:max-w-md lg:max-w-xl mx-auto overflow-hidden">
           <div className="relative h-full w-full">
             <AnimatePresence custom={direction} mode="wait">
               {currentImage && (
@@ -92,7 +93,7 @@ export function Gallery({
                   aria-label="Previous product image"
                   className={buttonClassName}
                 >
-                  <ArrowLeftIcon className="h-5" />
+                  <ArrowLeftIcon className="h-5 w-5" />
                 </button>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center">
@@ -102,7 +103,7 @@ export function Gallery({
                   aria-label="Next product image"
                   className={buttonClassName}
                 >
-                  <ArrowRightIcon className="h-5" />
+                  <ArrowRightIcon className="h-5 w-5" />
                 </button>
               </div>
             </>
@@ -117,7 +118,7 @@ export function Gallery({
                 <li
                   key={image.src}
                   className={`rounded-md !pt-2 p-1 ring-2 ${
-                    isActive ? "ring-white" : "ring-transparent "
+                    isActive ? "ring-white" : "ring-transparent"
                   } transition-all duration-200`}
                 >
                   <button
