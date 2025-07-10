@@ -33,6 +33,14 @@ export default function CarouselTabsWrapper({
       buttonLink: string;
     }
   > = {
+    Passenger: {
+      tag: "Top Pick",
+      title: "PHI Series Tires",
+      description:
+        "Offers a perfect balance of comfort and handling, ideal for daily and high-speed driving.",
+      buttonText: "Learn More",
+      buttonLink: "/collections/phi",
+    },
     PHI: {
       tag: "Top Pick",
       title: "PHI Series Tires",

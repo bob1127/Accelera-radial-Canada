@@ -3,6 +3,7 @@ import { Product } from "../../lib/shopify/types";
 import CarouselTabsWrapper from "./CarouselWrapper";
 
 const CATEGORY_HANDLE_MAP = {
+  Passenger: "passenger",
   PHI: "phi",
   "Eco Plush": "eco-plush",
   "IOTA ST-68": "iota-st-68",
@@ -15,6 +16,7 @@ const CATEGORY_HANDLE_MAP = {
 };
 
 const bannerMap: Record<string, string> = {
+  Passenger: "/images/index/banner/banner04.png",
   PHI: "/images/index/banner/banner04.png",
   OMIKRON:
     "/images/index/category/472545244_18479660686032449_1760968529204912170_n.jpg",

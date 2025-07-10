@@ -111,7 +111,7 @@ export function Gallery({
         </div>
 
         {images.length > 1 && (
-          <ul className="mt-6 flex items-center justify-center gap-3 overflow-x-auto px-2 py-1 scrollbar-hide">
+          <ul className="mt-6 flex items-center sm:justify-center gap-3 overflow-x-auto px-2 py-1 scrollbar-hide">
             {images.map((image, index) => {
               const isActive = index === safeImageIndex;
               return (
@@ -127,7 +127,7 @@ export function Gallery({
                       handleChangeImage(index, index > safeImageIndex ? 1 : -1)
                     }
                     aria-label="Select product image"
-                    className="h-16 w-16 sm:h-20 sm:w-20"
+                    className="h-28 w-28 sm:h-20 sm:w-20"
                   >
                     <GridTileImage
                       alt={image.altText}

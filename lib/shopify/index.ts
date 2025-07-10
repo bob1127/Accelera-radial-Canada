@@ -11,6 +11,8 @@ import {
 } from 'next/cache';
 import { cookies, headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { CUSTOMER_ACCESS_TOKEN_CREATE } from '../shopify/mutations/customerAccessTokenCreate';
+import { CUSTOMER_CREATE } from '../shopify/mutations/customerCreate';
 import { ensureStartsWith } from '../utils';
 import {
   addToCartMutation,
@@ -402,6 +404,27 @@ export async function getPages(): Promise<Page[]> {
   });
 
   return removeEdgesAndNodes(res.body.data.pages);
+}
+export async function customerLogin(email: string, password: string) {
+  const res = await shopifyFetch<any>({
+    query: CUSTOMER_ACCESS_TOKEN_CREATE,
+    variables: {
+      input: { email, password }
+    }
+  });
+
+  return res.body.data.customerAccessTokenCreate;
+}
+
+export async function customerRegister(email: string, password: string) {
+  const res = await shopifyFetch<any>({
+    query: CUSTOMER_CREATE,
+    variables: {
+      input: { email, password }
+    }
+  });
+
+  return res.body.data.customerCreate;
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
