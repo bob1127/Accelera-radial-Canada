@@ -3,7 +3,7 @@ export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
   return (
     <div>
       <Image
-        src="/images/logo/logo-accelera-white.png"
+        src="/images/logo/Accelera-LOGO.png"
         placeholder="empty"
         priority
         alt="logo"

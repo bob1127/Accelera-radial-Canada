@@ -1,46 +1,103 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   const handleRegister = async () => {
-    setMessage("註冊中...");
+    if (!firstName || !lastName || !email || !password) {
+      setMessage("❌ All fields are required.");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setMessage("❌ Invalid email format.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setMessage("❌ Password must be at least 6 characters.");
+      return;
+    }
+
+    setLoading(true);
+    setMessage("Registering, please wait...");
+
     try {
-      const res = await fetch("/api/admin-create-customer", {
+      const res = await fetch("/api/storefront-create-customer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
           password,
-          firstName: "顧客", // ✅ 可改為表單輸入
-          lastName: "先生/小姐", // ✅ 可改為表單輸入
+          firstName,
+          lastName,
         }),
       });
 
       const data = await res.json();
 
       if (res.ok && data.success) {
-        setMessage("✅ 註冊成功，請前往登入");
+        localStorage.setItem("customerToken", data.accessToken);
+        setMessage(
+          "✅ Registration successful. Redirecting to your account shortly. You may ignore the activation email."
+        );
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
       } else {
-        const errorMsg =
-          data?.error?.[0]?.message || "❌ 註冊失敗，請確認輸入資料";
-        setMessage(errorMsg);
+        const rawMessage =
+          typeof data?.error === "string"
+            ? data.error
+            : data?.error?.[0]?.message || "❌ Registration failed.";
+
+        const friendlyMessage = rawMessage.includes("taken")
+          ? "❌ This email is already registered. Please use another one."
+          : rawMessage;
+
+        setMessage(friendlyMessage);
       }
     } catch (err) {
-      console.error("❌ 註冊錯誤", err);
-      setMessage("❌ 註冊錯誤，請稍後再試");
+      console.error("❌ Registration error", err);
+      setMessage("❌ Registration failed. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="max-w-sm mx-auto mt-12 space-y-4 h-screen flex justify-center items-center">
       <div className="w-full">
-        <h2 className="text-xl font-bold mb-4 text-center">註冊帳號</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">
+          Create an Account
+        </h2>
 
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          className="w-full p-2 border mb-2"
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Last Name"
+          value={lastName}
+          className="w-full p-2 border mb-2"
+          onChange={(e) => setLastName(e.target.value)}
+        />
         <input
           type="email"
           placeholder="Email"
@@ -50,16 +107,17 @@ export default function RegisterPage() {
         />
         <input
           type="password"
-          placeholder="密碼"
+          placeholder="Password (min. 6 characters)"
           value={password}
           className="w-full p-2 border mb-4"
           onChange={(e) => setPassword(e.target.value)}
         />
         <button
           onClick={handleRegister}
-          className="w-full bg-black text-white py-2 hover:bg-gray-800 transition"
+          disabled={loading}
+          className="w-full bg-black text-white py-2 hover:bg-gray-800 transition disabled:opacity-50"
         >
-          註冊
+          {loading ? "Registering..." : "Sign Up"}
         </button>
 
         {message && (

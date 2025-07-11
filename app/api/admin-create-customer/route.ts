@@ -1,14 +1,14 @@
-// app/api/admin-create-customer/route.ts
 import { NextResponse } from "next/server";
 
-const ADMIN_API_URL = "https://accelera-radial.myshopify.com/admin/api/2024-07/graphql.json";
+const ADMIN_API_URL = "https://wdgc3h-wc.myshopify.com/admin/api/2024-07/graphql.json";
 const ADMIN_ACCESS_TOKEN = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN!;
 
 export async function POST(req: Request) {
-  const { email, password, firstName, lastName } = await req.json();
+  const { email, firstName, lastName } = await req.json();
+  const trimmedEmail = email.trim();
 
   try {
-    // 1️⃣ 建立顧客
+    // Step 1: 嘗試建立顧客
     const createCustomerRes = await fetch(ADMIN_API_URL, {
       method: "POST",
       headers: {
@@ -21,6 +21,7 @@ export async function POST(req: Request) {
             customerCreate(input: $input) {
               customer {
                 id
+                email
               }
               userErrors {
                 field
@@ -31,25 +32,63 @@ export async function POST(req: Request) {
         `,
         variables: {
           input: {
-            email,
+            email: trimmedEmail,
             firstName,
             lastName,
-            acceptsMarketing: false,
           },
         },
       }),
     });
 
     const createJson = await createCustomerRes.json();
-    const customerId = createJson.data.customerCreate.customer?.id;
-    const createErrors = createJson.data.customerCreate.userErrors;
+    console.log("🧾 customerCreate 回傳 JSON:", JSON.stringify(createJson, null, 2));
 
-    if (!customerId) {
-      return NextResponse.json({ success: false, error: createErrors }, { status: 400 });
+    let customerId = createJson.data?.customerCreate?.customer?.id;
+
+    const userErrors = createJson.data?.customerCreate?.userErrors || [];
+
+    // 如果 Email 已存在 → 查詢顧客 ID
+    if (!customerId && userErrors.some((e: any) => e.message.includes("Email has already been taken"))) {
+      const findCustomerRes = await fetch(ADMIN_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Access-Token": ADMIN_ACCESS_TOKEN,
+        },
+        body: JSON.stringify({
+          query: `
+            query getCustomerByEmail($query: String!) {
+              customers(first: 1, query: $query) {
+                edges {
+                  node {
+                    id
+                    email
+                  }
+                }
+              }
+            }
+          `,
+          variables: {
+            query: `email:${trimmedEmail}`,
+          },
+        }),
+      });
+
+      const findCustomerJson = await findCustomerRes.json();
+      console.log("🔍 查詢已存在的顧客 JSON:", JSON.stringify(findCustomerJson, null, 2));
+
+      customerId = findCustomerJson.data?.customers?.edges?.[0]?.node?.id;
     }
 
-    // 2️⃣ 啟用帳號
-    const activateCustomerRes = await fetch(ADMIN_API_URL, {
+    if (!customerId) {
+      return NextResponse.json(
+        { success: false, error: userErrors.length > 0 ? userErrors : "找不到顧客 ID" },
+        { status: 400 }
+      );
+    }
+
+    // Step 2: 發送邀請信
+    const inviteRes = await fetch(ADMIN_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,10 +96,10 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         query: `
-          mutation customerActivate($id: ID!, $password: String!) {
-            customerActivate(id: $id, input: { password: $password }) {
-              customer {
-                id
+          mutation sendInvite($customerId: ID!) {
+            customerSendInvite(id: $customerId) {
+              customerInvite {
+                email
               }
               userErrors {
                 field
@@ -70,21 +109,28 @@ export async function POST(req: Request) {
           }
         `,
         variables: {
-          id: customerId,
-          password,
+          customerId,
         },
       }),
     });
 
-    const activateJson = await activateCustomerRes.json();
-    const activatedId = activateJson.data.customerActivate.customer?.id;
-    const activateErrors = activateJson.data.customerActivate.userErrors;
+    const inviteJson = await inviteRes.json();
+    console.log("📩 customerSendInvite 回傳 JSON:", JSON.stringify(inviteJson, null, 2));
 
-    if (!activatedId) {
-      return NextResponse.json({ success: false, error: activateErrors }, { status: 400 });
+    const inviteData = inviteJson.data?.customerSendInvite;
+
+    if (!inviteData || inviteData.userErrors.length > 0) {
+      return NextResponse.json(
+        { success: false, error: inviteData?.userErrors || "Invite failed" },
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json({ success: true, customerId: activatedId });
+    return NextResponse.json({
+      success: true,
+      customerId,
+      message: `已發送邀請信至 ${inviteData.customerInvite.email}`,
+    });
   } catch (error) {
     console.error("❌ Admin API 錯誤：", error);
     return NextResponse.json({ success: false, error: "Internal Server Error" }, { status: 500 });

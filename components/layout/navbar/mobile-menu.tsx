@@ -1,18 +1,21 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Fragment, Suspense, useEffect, useState } from "react";
 
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { getCollections } from "@/lib/shopify";
 import { Menu } from "lib/shopify/types";
 import Search, { SearchSkeleton } from "./search";
 
-export default function MobileMenu({ menu }: { menu: Menu[] }) {
+export default function MobileMenu() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
+  const [menu, setMenu] = useState<Menu[]>([]);
+
   const openMobileMenu = () => setIsOpen(true);
   const closeMobileMenu = () => setIsOpen(false);
 
@@ -24,21 +27,32 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isOpen]);
+  }, []);
 
   useEffect(() => {
     setIsOpen(false);
   }, [pathname, searchParams]);
+
+  useEffect(() => {
+    getCollections().then((collections) => {
+      const menuItems = collections.map((col) => ({
+        title: col.title,
+        path: col.path,
+      }));
+      setMenu(menuItems);
+    });
+  }, []);
 
   return (
     <>
       <button
         onClick={openMobileMenu}
         aria-label="Open mobile menu"
-        className="flex h-11 w-11 items-center justify-center  text-black transition-colors md:hidden dark:border-neutral-700 dark:text-white"
+        className="flex h-11 w-11 items-center justify-center text-black transition-colors md:hidden dark:border-neutral-700 dark:text-white"
       >
         <Bars3Icon className="h-4 text-white" />
       </button>
+
       <Transition show={isOpen}>
         <Dialog onClose={closeMobileMenu} className="relative z-50">
           <Transition.Child
@@ -52,6 +66,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
           >
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
           </Transition.Child>
+
           <Transition.Child
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
@@ -76,24 +91,21 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                     <Search />
                   </Suspense>
                 </div>
-                {menu.length ? (
+
+                {menu.length > 0 && (
                   <ul className="flex w-full flex-col">
-                    {menu.map((item: Menu) => (
+                    {menu.map((item) => (
                       <li
                         className="py-2 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
-                        key={item.title}
+                        key={item.path}
                       >
-                        <Link
-                          href={item.path}
-                          prefetch={true}
-                          onClick={closeMobileMenu}
-                        >
+                        <Link href={item.path} onClick={closeMobileMenu}>
                           {item.title}
                         </Link>
                       </li>
                     ))}
                   </ul>
-                ) : null}
+                )}
               </div>
             </Dialog.Panel>
           </Transition.Child>

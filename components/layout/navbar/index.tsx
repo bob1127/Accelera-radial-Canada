@@ -3,9 +3,12 @@ import { getMenu } from "lib/shopify";
 import { Menu } from "lib/shopify/types";
 import Image from "next/image";
 import Link from "next/link";
+import NavbarClient from "./NavbarClient"; // 假設你存在這個檔案中
+
+import MobileCollectionsMenu from "@/components/MobileCollectionsMenu";
 import { Suspense } from "react";
 import { ShiftingDropDown } from "../../ShiftingDropDown.jsx";
-import MobileMenu from "./mobile-menu";
+
 import Search, { SearchSkeleton } from "./search";
 const { SITE_NAME } = process.env;
 export async function Navbar() {
@@ -13,11 +16,11 @@ export async function Navbar() {
 
   return (
     <nav className=" flex flex-col items-center justify-between  fixed w-full z-50 top-0 ">
-      <div className="top-nav bg-gradient-to-r from-[#ce0000]  to-[#ff0000] px-8 p-1 py-5 w-full">
+      <div className="top-nav bg-gradient-to-r from-[#000000]  to-[#272727] px-8 p-1 py-2 w-full">
         <div className="flex w-full items-center">
           <div className="block flex-none md:hidden">
             <Suspense fallback={null}>
-              <MobileMenu menu={menu} />
+              <MobileCollectionsMenu />
             </Suspense>
           </div>
           <div className="flex w-full md:w-1/3">
@@ -27,11 +30,11 @@ export async function Navbar() {
               className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
             >
               <Image
-                src="/images/Logo/logo-accelera-white.png"
+                src="/images/Logo/Accelera-LOGO.png"
                 alt="logo"
-                width={200}
+                width={100}
                 height={80}
-                className="w-[220px]"
+                className="w-[80px]"
               ></Image>
             </Link>
             {menu.length ? (
@@ -57,6 +60,7 @@ export async function Navbar() {
           </div>
 
           <div className="flex justify-end md:w-1/3">
+            <NavbarClient />
             <CartModal />
           </div>
         </div>
