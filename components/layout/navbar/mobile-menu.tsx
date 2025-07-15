@@ -1,13 +1,12 @@
 "use client";
 
+import { getCollections } from "@/lib/shopify";
 import { Dialog, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Menu } from "lib/shopify/types";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Fragment, Suspense, useEffect, useState } from "react";
-
-import { getCollections } from "@/lib/shopify";
-import { Menu } from "lib/shopify/types";
 import Search, { SearchSkeleton } from "./search";
 
 export default function MobileMenu() {

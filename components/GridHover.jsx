@@ -3,11 +3,11 @@
 import { useEffect, useRef } from "react";
 
 const highlightImages = [
-  "/images/hover06.jpg",
+  "/images/our-beginning/tracing.webp",
   "/images/hover01.jpg",
   "/images/534b4b_a36c31e1e814409b9b37492b26269e95.jpg",
   "/images/4MEBs75O8RvUWsKnrB0a.jpg",
-  "/images/hover06.jpg",
+  "/images/our-beginning/472642056_18479663083032449_1990468263412520619_n_結果.webp",
   "/images/hover01.jpg",
   "/images/hover02.jpg",
   "/images/hover03.jpg",
@@ -78,7 +78,7 @@ export default function HighlightGrid() {
         ref={containerRef}
         className="relative flex-col w-full flex items-center justify-center "
       >
-        <div className="title flex flex-col justify-center  items-center">
+        <div className="title flex flex-col justify-center  mb-8 items-center">
           <h2 className="text-gray-100 text-[45px] font-bold">OUR BEGINNING</h2>
           <p className="text-gray-100 leading-relaxed max-w-[1000px] text-center">
             PT. Elangperdana Tyre Industry started in producing its ﬁrst tyre in

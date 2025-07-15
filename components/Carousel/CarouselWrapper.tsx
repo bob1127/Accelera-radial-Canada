@@ -34,34 +34,42 @@ export default function CarouselTabsWrapper({
     }
   > = {
     Passenger: {
-      tag: "Top Pick",
-      title: "PHI Series Tires",
+      tag: "passenger",
+      title: "City Comfort Series",
       description:
-        "Offers a perfect balance of comfort and handling, ideal for daily and high-speed driving.",
+        "Designed for daily commuting and family use, offering outstanding comfort and low noise, perfect for city and highway drives.",
       buttonText: "Learn More",
       buttonLink: "/collections/phi",
     },
-    PHI: {
-      tag: "Top Pick",
-      title: "PHI Series Tires",
+    "Drift&Track": {
+      tag: "drift-track",
+      title: "Track Performance Series",
       description:
-        "Offers a perfect balance of comfort and handling, ideal for daily and high-speed driving.",
+        "Built for drifting and track racing, delivering high grip and sharp cornering response—your go-to for ultimate control.",
       buttonText: "Learn More",
       buttonLink: "/collections/phi",
     },
-    "Eco Plush": {
-      tag: "Eco Choice",
-      title: "Eco Plush Fuel-Saving Tires",
+    Rally: {
+      tag: "rally",
+      title: "Rally Terrain Series",
       description:
-        "Designed for fuel efficiency, providing a quiet and comfortable driving experience.",
+        "Handles diverse terrains including gravel, mud, and hilly roads, combining stability and durability for off-road adventures.",
       buttonText: "Shop Now",
       buttonLink: "/collections/eco-plush",
     },
-    "IOTA ST-68": {
-      tag: "Eco Choice",
-      title: "Eco Plush Fuel-Saving Tires",
+    Truck: {
+      tag: "truck",
+      title: "Heavy Load Series",
       description:
-        "Designed for fuel efficiency, providing a quiet and comfortable driving experience.",
+        "Ideal for commercial and heavy-duty applications, reinforced structure ensures long-haul durability and stability.",
+      buttonText: "Shop Now",
+      buttonLink: "/collections/eco-plush",
+    },
+    "Winter&Snow": {
+      tag: "winter-snow",
+      title: "Winter Snow Series",
+      description:
+        "Specially engineered for cold and slippery conditions, enhancing traction and braking on snow and ice for safe winter driving.",
       buttonText: "Shop Now",
       buttonLink: "/collections/eco-plush",
     },

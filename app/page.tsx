@@ -6,8 +6,8 @@ import AccordionHover from "../components/AccordionHover";
 import AutoInfiniteCarousel from "../components/AutoInfiniteCarousel";
 import { Carousel } from "../components/Carousel/Carousel";
 import GridHover from "../components/GridHover";
+import ScrollBtn from "../components/ScrollButton";
 import SliderCard from "../components/SliderCard/index";
-
 import { WavyBackground } from "../components/ui/wavy-background";
 export const metadata = {
   description:
@@ -114,7 +114,7 @@ export default function HomePage() {
       <SliderCard />
       <section className="relative pt-[100px]">
         <div className="txt w-full absolute left-1/2 -translate-x-1/2 z-20">
-          <h2 className="text-[8vmin] text-center text-white  ">
+          <h2 className="text-[6vmin] text-center text-white  ">
             Stability. Safety. Full Acceleration.
           </h2>
           <p className="text-lg md:text-lg mt- text-white font-normal inter-var text-center">
@@ -122,8 +122,12 @@ export default function HomePage() {
           </p>
         </div>
         <WavyBackground className="absolute z-30 left-0 top-[30%] lg:top-[25%] w-screen h-full mx-auto pb-40"></WavyBackground>
+        <ScrollBtn />
       </section>
-      <GridHover />
+      <div id="outro-section">
+        {" "}
+        <GridHover />
+      </div>
 
       <section className="outro h-screen flex  flex-col lg:flex-row items-center justify-center bg-black text-white">
         <h1 className="text-3xl font-bold text-center px-3 sm:px-10 max-w-3xl">

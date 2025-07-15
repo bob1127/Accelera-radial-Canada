@@ -61,6 +61,31 @@ section {
 
   color: #fff;
 }
+
+
+@layer components {
+  .prose table {
+    @apply block w-full overflow-x-auto border-collapse border-spacing-0 my-6;
+  }
+
+  .prose thead {
+    @apply bg-gray-100 font-semibold;
+  }
+
+  .prose th,
+  .prose td {
+    @apply whitespace-nowrap text-sm px-4 py-2 border border-gray-300 text-left;
+  }
+
+  .prose tr:nth-child(even) {
+    @apply bg-gray-50;
+  }
+
+  .prose tr:hover {
+    @apply bg-blue-50;
+  }
+}
+
 .intro,
 .outro {
   height: 100svh;

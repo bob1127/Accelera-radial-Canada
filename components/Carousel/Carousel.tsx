@@ -4,33 +4,18 @@ import CarouselTabsWrapper from "./CarouselWrapper";
 
 const CATEGORY_HANDLE_MAP = {
   Passenger: "passenger",
-  PHI: "phi",
-  "Eco Plush": "eco-plush",
-  "IOTA ST-68": "iota-st-68",
-  OMIKRON: "omikron",
-  "X-Grip N": "x-grip-n",
-  "651 Sport Pro": "651-sport-pro",
-  "351 Sport GD": "351-sport-gd",
-  "MT-01": "mt-01",
-  "IOTA EVT": "iota-evt",
+  "Drift&Track": "drift-track",
+  Rally: "rally",
+  Truck: "truck",
+  "Winter&Snow": "winter-snow",
 };
 
 const bannerMap: Record<string, string> = {
-  Passenger: "/images/index/banner/banner04.png",
-  PHI: "/images/index/banner/banner04.png",
-  OMIKRON:
-    "/images/index/category/472545244_18479660686032449_1760968529204912170_n.jpg",
-  "Eco Plush":
-    "/images/index/category/471322434_18477637159032449_7802630235560669119_n.jpg",
-  "IOTA ST-68":
-    "/images/index/category/471322434_18477637159032449_7802630235560669119_n.jpg",
-  "X-Grip N":
-    "/images/index/category/471322434_18477637159032449_7802630235560669119_n.jpg",
-  "651 Sport Pro":
-    "/images/index/category/469419629_18473443102032449_6229268480613632601_n.jpg",
-  "351 Sport GD": "/images/banners/351-sport-gd.jpg",
-  "MT-01": "/images/banners/mt-01.jpg",
-  "IOTA EVT": "/images/banners/iota-evt.jpg",
+  Passenger: "/images/all-kind-of-tire/passenger.webp",
+  "Drift&Track": "/images/all-kind-of-tire/drift&trace.webp",
+  Rally: "/images/all-kind-of-tire/rally.webp",
+  Truck: "/images/all-kind-of-tire/truck-tire.webp",
+  "Winter&Snow": "/images/all-kind-of-tire/winter&snow.webp",
 };
 
 export async function Carousel() {

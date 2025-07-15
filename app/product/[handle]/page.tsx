@@ -8,8 +8,8 @@ import { ProductDescription } from "components/product/product-description";
 import ProductDetail from "components/product/product-details-content";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopify";
-import { Image } from "lib/shopify/types";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -85,9 +85,9 @@ export default async function ProductPage(props: {
           }}
         />
         <div className="mx-auto  py-14 sm:py-20 max-w-(--breakpoint-3xl) px-4">
-          <div className="flex flex-col rounded-lg border-none sm:border border-neutral-200 bg-[#ffffff] p-2 sm:p-8 md:p-12 lg:flex-row mx-auto max-w-[1920px] items-center justify-center lg:gap-8 dark:border-neutral-800 ">
+          <div className="flex  flex-col rounded-lg border-none sm:border border-neutral-200 bg-[#ffffff] p-2 sm:p-8 md:p-12 lg:flex-row mx-auto max-w-[1920px] items-center justify-center lg:gap-8 dark:border-neutral-800 ">
             <div className="h-full w-full  mt-20 basis-full lg:basis-4/6">
-              <div className="mb-6 text-sm  text-gray-500">
+              <div className="mb-6 text-sm   text-gray-500">
                 <Link href="/" className="hover:underline">
                   Home
                 </Link>{" "}
@@ -97,7 +97,7 @@ export default async function ProductPage(props: {
                 </Link>{" "}
                 / <span className="text-gray-700">{product.title}</span>
               </div>
-              <div className="flex flex-col gap-6 pb-20 pt-10 lg:flex-row lg:gap-8">
+              <div className="flex flex-col w-full xl:w-[80%] max-w-[1920px] gap-6 pb-20 pt-10 lg:flex-row lg:gap-8">
                 {/* 左側：Gallery */}
                 <div className="w-full lg:w-2/3">
                   <Suspense
@@ -108,9 +108,9 @@ export default async function ProductPage(props: {
                     <Gallery
                       images={product.images
                         .slice(0, 5)
-                        .map((image: Image) => ({
-                          src: image.url,
-                          altText: image.altText,
+                        .map(({ url, altText }) => ({
+                          src: url,
+                          altText,
                         }))}
                     />
                   </Suspense>
@@ -125,11 +125,27 @@ export default async function ProductPage(props: {
               </div>
 
               <ProductDetail product={product} />
-              <img
-                src="/images/index/DM.jpg"
-                alt=""
-                className="max-w-[650px] "
-              ></img>
+
+              <div className="w-full md:w-[90%]  2xl:w-[80%] max-w-[1920px] mx-auto ">
+                <Image
+                  src="/images/global_map.webp"
+                  alt="map"
+                  width={1000}
+                  height={700}
+                  className="max-w-[1000px]"
+                  loading="lazy"
+                  placeholder="empty"
+                ></Image>
+                <Image
+                  src="/images/index/DM.jpg"
+                  alt="dm"
+                  width={800}
+                  height={1000}
+                  loading="lazy"
+                  placeholder="empty"
+                  className="max-w-[650px] mt-10 "
+                ></Image>
+              </div>
             </div>
           </div>
           <RelatedProducts id={product.id} />

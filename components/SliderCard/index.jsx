@@ -168,7 +168,7 @@ export default function CapsuleStickyCards() {
 
   return (
     <div ref={containerRef} className="w-full bg-[#0e0e0e]">
-      <section className="intro h-screen flex items-center justify-center">
+      <section className=" h-[30vh] flex items-center justify-center">
         <h1 className="text-4xl font-bold text-center max-w-3xl">
           Drive Beyond Limits
         </h1>

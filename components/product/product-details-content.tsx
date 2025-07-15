@@ -11,7 +11,7 @@ export default function ProductDetailsContent({
   if (!product.descriptionHtml) return null;
 
   return (
-    <div className="mt-10 w-full rounded-lg s  p-2 sm:p-8 md:p-12 dark:border-neutral-800 bg-[#ffffff]">
+    <div className="mt-10 w-full md:w-[90%] 2xl:w-[80%] max-w-[1920px] mx-auto rounded-lg  dark:border-neutral-800 bg-[#ffffff]">
       <ProductSwiper
         images={[
           { src: "/images/index/banner/banner05.jpg", alt: "Product 1" },
@@ -20,11 +20,12 @@ export default function ProductDetailsContent({
         ]}
       />
 
-      <h2 className="text-2xl font-bold mb-4">產品詳情</h2>
-      <Prose
-        className="text-sm leading-relaxed dark:text-white/[70%]"
-        html={product.descriptionHtml}
-      />
+      <div className="flex justify-center py-20">
+        <Prose
+          className="text-sm max-w-[900px] tracking-wider leading-relaxed dark:text-white/[70%]"
+          html={product.descriptionHtml}
+        />
+      </div>
     </div>
   );
 }

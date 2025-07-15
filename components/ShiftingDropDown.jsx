@@ -259,7 +259,7 @@ const Products = () => {
             </div>
           </div>
         </Link>
-        <Link href="/search/651-sport-pro">
+        <Link href="/search/drift-track">
           <div className="flex bg-neutral-800 rounded-md overflow-hidden shadow-md">
             <div className="w-1/2">
               <img
