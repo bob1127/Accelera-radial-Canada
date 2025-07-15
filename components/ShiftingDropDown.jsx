@@ -337,8 +337,8 @@ const Products = () => {
 
       <div className="flex justify-end mt-4">
         <Link
-          href="/search/phi"
-          className="flex items-center gap-1 text-sm text-indigo-300 hover:underline"
+          href="/search"
+          className="flex items-center gap-1 text-sm text-slate-50 hover:underline"
         >
           <span>View more</span>
           <FiArrowRight />

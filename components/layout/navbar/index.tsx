@@ -23,7 +23,7 @@ export async function Navbar() {
               <MobileCollectionsMenu />
             </Suspense>
           </div>
-          <div className="flex w-full md:w-1/3">
+          <div className="flex w-full max-w-[130px] mx-auto md:w-1/3">
             <Link
               href="/"
               prefetch={true}
@@ -32,7 +32,7 @@ export async function Navbar() {
               <Image
                 src="/images/Logo/Accelera-LOGO.png"
                 alt="logo"
-                width={100}
+                width={400}
                 height={80}
                 className="w-[80px]"
               ></Image>
@@ -53,14 +53,16 @@ export async function Navbar() {
               </ul>
             ) : null}
           </div>
-          <div className="hidden justify-center md:flex md:w-1/3 relative group">
-            <Suspense fallback={<SearchSkeleton />}>
-              <Search />
-            </Suspense>
-          </div>
+          <div className="hidden justify-center md:flex md:w-1/3 relative group"></div>
 
           <div className="flex justify-end md:w-1/3">
+            <div className="md:block hidden pr-4">
+              <Suspense fallback={<SearchSkeleton />}>
+                <Search />
+              </Suspense>
+            </div>
             <NavbarClient />
+
             <CartModal />
           </div>
         </div>

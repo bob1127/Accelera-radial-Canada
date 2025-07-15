@@ -53,7 +53,7 @@ export function Gallery({
 
   return (
     <div className="flex w-full">
-      <form className="sm:w-[80%] w-full xl:w-1/2 mx-auto">
+      <form className="sm:w-[95%] w-full xl:w-[80%] mx-auto">
         <div className="relative aspect-[3.9/4] w-full sm:max-w-sm md:max-w-md lg:max-w-xl mx-auto overflow-hidden">
           <div className="relative h-full w-full">
             <AnimatePresence custom={direction} mode="wait">
@@ -111,7 +111,7 @@ export function Gallery({
         </div>
 
         {images.length > 1 && (
-          <ul className="mt-6 flex items-center sm:justify-center gap-3 overflow-x-auto px-2 py-1 scrollbar-hide">
+          <ul className="mt-6 flex items-center sm:justify-center gap-1 overflow-x-auto  py-1 scrollbar-hide">
             {images.map((image, index) => {
               const isActive = index === safeImageIndex;
               return (

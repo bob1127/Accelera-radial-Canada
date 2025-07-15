@@ -42,23 +42,36 @@ export default function CartPage() {
         {cart.lines.map((item) => (
           <div
             key={item.merchandise.id}
-            className="flex items-center bg-slate-50  rounded-lg p-5 gap-4  pb-4"
+            className="relative flex items-start sm:items-center flex-col sm:flex-row bg-gray-900 rounded-lg p-8 gap-4 pb-4"
           >
-            {item.merchandise.product.featuredImage?.url && (
-              <div className="w-1/2">
-                <Image
-                  src={item.merchandise.product.featuredImage.url}
-                  alt={item.merchandise.product.title}
-                  width={300}
-                  height={300}
-                  className="object-cover max-w-[200px] rounded"
-                />
-              </div>
-            )}
+            <div className="absolute top-3 right-3 z-10">
+              <DeleteItemButton
+                item={item}
+                optimisticUpdate={optimisticUpdate}
+              />
+            </div>
+            <div className="w-full md:w-1/2">
+              {item.merchandise.product.featuredImage?.url && (
+                <Link
+                  href={`/product/${item.merchandise.product.handle}`}
+                  className="w-full sm:w-1/2 max-w-[600px] sm:max-w-[160px] aspect-square relative bg-white border block"
+                >
+                  <Image
+                    src={item.merchandise.product.featuredImage.url}
+                    alt={item.merchandise.product.title}
+                    fill
+                    className="object-contain p-4"
+                  />
+                </Link>
+              )}
+            </div>
+
             <div className="flex-1">
-              <p className="font-semibold">{item.merchandise.product.title}</p>
-              <p className="text-sm text-gray-500">{item.merchandise.title}</p>
-              <div className="flex items-center mt-2 gap-2">
+              <p className="font-semibold text-white  text-[16px]">
+                {item.merchandise.product.title}
+              </p>
+              <p className="text-sm text-gray-100">{item.merchandise.title}</p>
+              <div className="flex items-center text-gray-50 mt-2 gap-2">
                 <EditItemQuantityButton
                   item={item}
                   type="minus"
@@ -70,13 +83,9 @@ export default function CartPage() {
                   type="plus"
                   optimisticUpdate={optimisticUpdate}
                 />
-                <DeleteItemButton
-                  item={item}
-                  optimisticUpdate={optimisticUpdate}
-                />
               </div>
             </div>
-            <div className="w-[100px] text-right">
+            <div className="w-[100px] text-right text-gray-50">
               NT${Number(item.cost.totalAmount.amount).toLocaleString()}
             </div>
           </div>

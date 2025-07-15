@@ -3,7 +3,7 @@ import { CUSTOMER_CREATE } from "./mutations/customerCreate";
 import { CUSTOMER_RECOVER } from "./mutations/customerRecover"; // ✅ 新增
 import { CUSTOMER_DETAILS } from "./queries/customerDetails";
 
-const SHOPIFY_DOMAIN = "accelera-radial.ca";
+const SHOPIFY_DOMAIN = "wdgc3h-wc.myshopify.com"; 
 const ACCESS_TOKEN = "ffe48fa71b4ab65c45768c16ae3108bc";
 
 interface UserError {

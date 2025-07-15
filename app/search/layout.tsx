@@ -1,7 +1,6 @@
 import Collections from "components/layout/search/collections";
 import FilterList from "components/layout/search/filter";
 import { sorting } from "lib/constants";
-import { aspectFilters, widthFilters } from "lib/shopify/filters";
 import { Suspense } from "react";
 import ChildrenWrapper from "./children-wrapper";
 
@@ -16,8 +15,9 @@ export default function SearchLayout({
         {/* 左側：篩選欄 - 在小螢幕置頂、滿版 */}
         <aside className="w-[90%] mx-auto lg:w-[25%] xl:w-[20%] py-10 bg-white space-y-6 px-4 mb-10 lg:mb-0">
           <FilterList title="Sort by" list={sorting} />
-          <FilterList title="胎寬 Width" list={widthFilters} />
+          {/* <FilterList title="胎寬 Width" list={widthFilters} />
           <FilterList title="扁平比 Aspect Ratio" list={aspectFilters} />
+          <FilterList list={rimSizeFilters} title="輪圈尺寸" /> */}
         </aside>
 
         {/* 右側：內容 */}

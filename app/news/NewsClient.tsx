@@ -39,7 +39,7 @@ export default function NewsClient({ posts }: { posts: Post[] }) {
   const totalPages = Math.ceil(posts.length / pageSize);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-[200px] pb-20">
+    <div className="max-w-6xl mx-auto px-4 py-[200px] pb-20">
       <BentoGrid>
         {currentPosts.map((post, i) => {
           const featuredImage =
