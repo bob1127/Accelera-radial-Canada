@@ -81,7 +81,7 @@ export default function CarouselTabsWrapper({
   return (
     <div className="w-full">
       {/* Tabs 切換列 */}
-      <div className="flex flex-wrap gap-2 px-4 mb-4">
+      <div className="flex flex-wrap gap-2 mb-4">
         {categoryNames.map((category) => (
           <button
             key={category}
@@ -174,13 +174,13 @@ export default function CarouselTabsWrapper({
             {categorizedProducts[activeTab]?.map((product, i) => (
               <li
                 key={`${product.handle}-${i}`}
-                className="group snap-start h-[270px] md:h-[350px] flex-none w-full max-w-[250px] p-0 lg:p-8 md:w-2/3 aspect-[3/5.5] bg-white overflow-hidden shadow-md"
+                className="group snap-start h-[300px] md:h-[350px] flex-none w-full max-w-[250px] p-0 lg:p-8 md:w-2/3 aspect-[3/5.5] bg-white overflow-hidden shadow-md"
               >
                 <Link
                   href={`/product/${product.handle}`}
                   className="block h-full"
                 >
-                  <div className="relative w-full group-hover:scale-[.9] duration-500 scale-[.8] h-[170px] md:h-[210px]">
+                  <div className="relative w-full group-hover:scale-[.9] duration-500 scale-[.8] h-[190px] md:h-[210px]">
                     <Image
                       src={product.featuredImage.url}
                       alt={product.title}

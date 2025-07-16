@@ -99,7 +99,7 @@ export default function HomePage() {
 
       <section className="section-feature bg-[#F0F1F2] px-8 lg:px-0 flex flex-row items-center  py-20">
         <div className="title flex  w-full lg:w-[75%] mx-auto flex-col">
-          <h2 className="text-[48px] mb-5 font-bold text-[#1D1D1F]">
+          <h2 className="text-[7vmin] mb-5 font-bold text-[#1D1D1F]">
             ALL KINDS OF TIRES
           </h2>
 
@@ -113,8 +113,8 @@ export default function HomePage() {
 
       <SliderCard />
       <section className="relative pt-[100px]">
-        <div className="txt w-full absolute left-1/2 -translate-x-1/2 z-20">
-          <h2 className="text-[6vmin] text-center text-white  ">
+        <div className="txt w-[90%] absolute left-1/2 -translate-x-1/2 z-20">
+          <h2 className="text-[7vmin] text-center text-white  ">
             Stability. Safety. Full Acceleration.
           </h2>
           <p className="text-lg md:text-lg mt- text-white font-normal inter-var text-center">
@@ -130,9 +130,9 @@ export default function HomePage() {
       </div>
 
       <section className="outro h-screen flex  flex-col lg:flex-row items-center justify-center bg-black text-white">
-        <h1 className="text-3xl font-bold text-center px-3 sm:px-10 max-w-3xl">
+        <h2 className="text-[7vmin] mb-5 font-bold text-center px-3 sm:px-10 max-w-3xl">
           Where Performance Meets Precision
-        </h1>
+        </h2>
 
         <Marquee>
           <Image

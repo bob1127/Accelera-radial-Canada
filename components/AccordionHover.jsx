@@ -130,9 +130,9 @@ export default function AwardsHoverComponent() {
   return (
     <div className="relative bg-[#F0F1F2] font-sans">
       <section className="flex justify-center items-center w-full px-4">
-        <h1 className="uppercase text-[12vw] text-black md:text-[72px] font-extrabold leading-[0.9] tracking-tight text-center">
+        <h2 className="uppercase text-[7vmin] text-black md:text-[72px] font-extrabold leading-[0.9] tracking-tight text-center">
           Intro
-        </h1>
+        </h2>
       </section>
 
       <section className=" h-auto mb-20 sm:mb-0 sm:min-h-screen w-full px-4">

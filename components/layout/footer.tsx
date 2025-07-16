@@ -20,7 +20,9 @@ export default function Footer() {
           sizes="(max-width: 768px) 100vw, 100vw"
         />
         <div className="txt absolute z-40 top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2">
-          <h2 className="text-white font-extrabold text-[58px]">TIRES STORE</h2>
+          <h2 className="text-white font-extrabold text-[8vmin]">
+            TIRES STORE
+          </h2>
           <Link href="/search">
             <div className="bg-white text-slate-800 text-center text-[16px] px-4 py-2">
               {" "}

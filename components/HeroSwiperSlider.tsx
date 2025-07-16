@@ -34,14 +34,14 @@ export default function HeroSwiperSlider({ slides }: HeroSwiperSliderProps) {
       // @ts-ignore
       swiperInstance.params.navigation.nextEl = nextRef.current;
 
-      swiperInstance.navigation.destroy(); // 先銷毀舊的
-      swiperInstance.navigation.init(); // 重新初始化
-      swiperInstance.navigation.update(); // 更新狀態
+      swiperInstance.navigation.destroy();
+      swiperInstance.navigation.init();
+      swiperInstance.navigation.update();
     }
   }, [swiperInstance]);
 
   return (
-    <div className="relative w-full h-[650px]">
+    <div className="relative w-full h-[450px] md:h-[650px]">
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
@@ -59,11 +59,11 @@ export default function HeroSwiperSlider({ slides }: HeroSwiperSliderProps) {
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full h-[650px]">
+            <div className="w-full h-[450px] md:h-[650px] flex items-center justify-center">
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain object-center"
               />
             </div>
           </SwiperSlide>
@@ -73,13 +73,13 @@ export default function HeroSwiperSlider({ slides }: HeroSwiperSliderProps) {
       {/* 自訂左右箭頭 */}
       <button
         ref={prevRef}
-        className="absolute top-1/2 rounded-xl left-8 z-10 -translate-y-1/2 bg-white/70 hover:bg-white w-10 h-10 flex items-center duration-500 justify-center shadow transition"
+        className="absolute top-1/2 hidden sm:flex items-center justify-center w-10 h-10 left-8 z-10 -translate-y-1/2 bg-white/70 hover:bg-white rounded-xl shadow transition duration-500"
       >
         ←
       </button>
       <button
         ref={nextRef}
-        className="absolute top-1/2 rounded-xl duration-500 right-8 z-10 -translate-y-1/2 bg-white/70 hover:bg-white w-10 h-10 flex items-center justify-center shadow transition"
+        className="absolute top-1/2 hidden sm:flex items-center justify-center w-10 h-10 right-8 z-10 -translate-y-1/2 bg-white/70 hover:bg-white rounded-xl shadow transition duration-500"
       >
         →
       </button>

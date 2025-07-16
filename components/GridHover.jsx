@@ -79,8 +79,10 @@ export default function HighlightGrid() {
         className="relative flex-col w-full flex items-center justify-center "
       >
         <div className="title flex flex-col justify-center  mb-8 items-center">
-          <h2 className="text-gray-100 text-[45px] font-bold">OUR BEGINNING</h2>
-          <p className="text-gray-100 leading-relaxed max-w-[1000px] text-center">
+          <h2 className="text-gray-100 text-[7vmin]  px-4  font-bold">
+            OUR BEGINNING
+          </h2>
+          <p className="text-gray-100 leading-relaxed w-[90%] max-w-[900px] text-center">
             PT. Elangperdana Tyre Industry started in producing its ﬁrst tyre in
             year 1996. The factory is located at a unique landscape near
             mountain side in Sub - County Citeureup, Bogor city, three
