@@ -86,7 +86,7 @@ export async function Navbar() {
           <ShiftingDropDown />
           <div className="link-wrap ml-2 mt-1 flex gap-2">
             <Link
-              href="/news"
+              href="/blog"
               className="text-neutral-400 hover:bg-neutral-800 hover:text-white rounded-full duration-300 px-4  text-sm"
             >
               News

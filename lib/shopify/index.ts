@@ -1,4 +1,4 @@
-
+// lib/shopify.ts
 import {
   HIDDEN_PRODUCT_TAG,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
@@ -9,6 +9,7 @@ import {
   unstable_cacheTag as cacheTag,
   revalidateTag
 } from 'next/cache';
+
 import { cookies, headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { CUSTOMER_ACCESS_TOKEN_CREATE } from '../shopify/mutations/customerAccessTokenCreate';
@@ -33,6 +34,7 @@ import {
   getProductRecommendationsQuery,
   getProductsQuery
 } from './queries/product';
+
 import {
   Cart,
   Collection,
@@ -60,112 +62,30 @@ import {
   ShopifyUpdateCartOperation
 } from './types';
 
+/** ---------- 基礎設定 ---------- */
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
   : '';
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
-type ExtractVariables<T> = T extends { variables: object }
-  ? T['variables']
-  : never;
-
-export async function shopifyFetch<T>({
-  headers,
-  query,
-  variables
-}: {
-  headers?: HeadersInit;
-  query: string;
-  variables?: ExtractVariables<T>;
-}): Promise<{ status: number; body: T } | never> {
-    console.log('🔗 Endpoint:', endpoint);
-  console.log('🔑 Token starts with:', key?.slice(0, 5));
-  console.log('📦 Query (short):', query.slice(0, 60) + '...');
-  try {
-    const result = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': key,
-        ...headers
-      }, 
-      body: JSON.stringify({
-        ...(query && { query }),
-        ...(variables && { variables })
-      })
-    });
-
-    const body = await result.json();
-
-    if (body.errors) {
-      console.error('Shopify API Error:', body.errors);
-      throw body.errors[0];
-    }
-
-    return {
-      status: result.status,
-      body
-    };
-  } catch (e) {
-    console.error('Fetch failed:', e);
-    throw {
-      error: e instanceof Error ? e.message : e,
-      query
-    };
-  }
+if (!process.env.SHOPIFY_STORE_DOMAIN || !process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
+  throw new Error('Missing SHOPIFY env: SHOPIFY_STORE_DOMAIN or SHOPIFY_STOREFRONT_ACCESS_TOKEN');
 }
 
+/** ---------- 小工具 ---------- */
+type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
+
+const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** 把 edges.nodes 攤平 */
 const removeEdgesAndNodes = <T>(array: Connection<T>): T[] => {
-  return array.edges.map((edge) => edge?.node);
+  return (array?.edges ?? []).map((edge) => edge?.node);
 };
 
-const reshapeCart = (cart: ShopifyCart): Cart => {
-  if (!cart.cost?.totalTaxAmount) {
-    cart.cost.totalTaxAmount = {
-      amount: '0.0',
-      currencyCode: cart.cost.totalAmount.currencyCode
-    };
-  }
-
-  return {
-    ...cart,
-    lines: removeEdgesAndNodes(cart.lines)
-  };
-};
-
-const reshapeCollection = (
-  collection: ShopifyCollection
-): Collection | undefined => {
-  if (!collection) {
-    return undefined;
-  }
-
-  return {
-    ...collection,
-    path: `/search/${collection.handle}`
-  };
-};
-
-const reshapeCollections = (collections: ShopifyCollection[]) => {
-  const reshapedCollections = [];
-
-  for (const collection of collections) {
-    if (collection) {
-      const reshapedCollection = reshapeCollection(collection);
-
-      if (reshapedCollection) {
-        reshapedCollections.push(reshapedCollection);
-      }
-    }
-  }
-
-  return reshapedCollections;
-};
-
+/** 影像補 alt 與扁平化 */
 const reshapeImages = (images: Connection<Image>, productTitle: string) => {
   const flattened = removeEdgesAndNodes(images);
-
   return flattened.map((image) => {
     const filename = image.url.match(/.*\/(.*)\..*/)?.[1];
     return {
@@ -175,47 +95,96 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
   });
 };
 
-const reshapeProduct = (
-  product: ShopifyProduct,
-  filterHiddenProducts: boolean = true
-) => {
-  if (
-    !product ||
-    (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))
-  ) {
-    return undefined;
-  }
+/** ---------- 強化的 Shopify 取用器（含自動重試） ---------- */
+export async function shopifyFetch<T>({
+  headers,
+  query,
+  variables,
+  retries = 2
+}: {
+  headers?: HeadersInit;
+  query: string;
+  variables?: ExtractVariables<T>;
+  retries?: number;
+}): Promise<{ status: number; body: T } | never> {
+  // 簡潔且安全的 debug
+  console.log('🔗 Shopify endpoint:', endpoint);
+  if (key) console.log('🔑 Token prefix:', key.slice(0, 6) + '…');
+  console.log('📦 Query preview:', (query || '').trim().slice(0, 80).replace(/\s+/g, ' ') + '…');
 
-  const { images, variants, ...rest } = product;
+  let lastError: any;
 
-  return {
-    ...rest,
-    images: reshapeImages(images, product.title),
-    variants: removeEdgesAndNodes(variants)
-  };
-};
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const result = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': key,
+          ...headers
+        },
+        body: JSON.stringify({
+          ...(query && { query }),
+          ...(variables && { variables })
+        }),
+        // 你也可以改成 'force-cache' / 'no-store' 視需求
+        cache: 'no-store'
+      });
 
-const reshapeProducts = (products: ShopifyProduct[]) => {
-  const reshapedProducts = [];
+      const body = await result.json();
 
-  for (const product of products) {
-    if (product) {
-      const reshapedProduct = reshapeProduct(product);
+      if (!result.ok || (body as any)?.errors) {
+        const status = result.status;
+        const errors = (body as any)?.errors;
+        // GraphQL 格式化錯誤
+        if (errors) {
+          console.error('Shopify GraphQL Errors:', errors);
+        }
 
-      if (reshapedProduct) {
-        reshapedProducts.push(reshapedProduct);
+        // 429/5xx 自動重試
+        if ((status === 429 || status >= 500) && attempt < retries) {
+          const backoff = 500 * Math.pow(2, attempt); // 500ms, 1000ms, 2000ms…
+          console.warn(`⚠️ Shopify ${status}. Retry in ${backoff}ms (attempt ${attempt + 1}/${retries})`);
+          await wait(backoff);
+          continue;
+        }
+
+        // 丟出第一個 GraphQL error 或 HTTP 錯誤
+        throw (errors?.[0] || new Error(`Shopify HTTP ${status}`));
+      }
+
+      return { status: result.status, body };
+    } catch (e) {
+      lastError = e;
+      // 非 HTTP 也做重試
+      if (attempt < retries) {
+        const backoff = 500 * Math.pow(2, attempt);
+        console.warn(`⚠️ Network/unknown fetch error. Retry in ${backoff}ms`, e);
+        await wait(backoff);
+        continue;
       }
     }
   }
 
-  return reshapedProducts;
+  console.error('❌ shopifyFetch failed:', lastError);
+  throw lastError;
+}
+
+/** ---------- Cart 相關 ---------- */
+const reshapeCart = (cart: ShopifyCart): Cart => {
+  if (!cart.cost?.totalTaxAmount) {
+    cart.cost.totalTaxAmount = {
+      amount: '0.0',
+      currencyCode: cart.cost.totalAmount.currencyCode
+    };
+  }
+  return { ...cart, lines: removeEdgesAndNodes(cart.lines) };
 };
 
 export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation
   });
-
   return reshapeCart(res.body.data.cartCreate.cart);
 }
 
@@ -225,10 +194,7 @@ export async function addToCart(
   const cartId = (await cookies()).get('cartId')?.value!;
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
-    variables: {
-      cartId,
-      lines
-    }
+    variables: { cartId, lines }
   });
   return reshapeCart(res.body.data.cartLinesAdd.cart);
 }
@@ -237,12 +203,8 @@ export async function removeFromCart(lineIds: string[]): Promise<Cart> {
   const cartId = (await cookies()).get('cartId')?.value!;
   const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
     query: removeFromCartMutation,
-    variables: {
-      cartId,
-      lineIds
-    }
+    variables: { cartId, lineIds }
   });
-
   return reshapeCart(res.body.data.cartLinesRemove.cart);
 }
 
@@ -252,49 +214,49 @@ export async function updateCart(
   const cartId = (await cookies()).get('cartId')?.value!;
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
     query: editCartItemsMutation,
-    variables: {
-      cartId,
-      lines
-    }
+    variables: { cartId, lines }
   });
-
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
 
 export async function getCart(): Promise<Cart | undefined> {
   const cartId = (await cookies()).get('cartId')?.value;
-
-  if (!cartId) {
-    return undefined;
-  }
+  if (!cartId) return undefined;
 
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId }
   });
 
-  // Old carts becomes `null` when you checkout.
-  if (!res.body.data.cart) {
-    return undefined;
-  }
-
+  if (!res.body.data.cart) return undefined;
   return reshapeCart(res.body.data.cart);
 }
 
-export async function getCollection(
-  handle: string
-): Promise<Collection | undefined> {
+/** ---------- Collections ---------- */
+const reshapeCollection = (collection: ShopifyCollection): Collection | undefined => {
+  if (!collection) return undefined;
+  return { ...collection, path: `/search/${collection.handle}` };
+};
+
+const reshapeCollections = (collections: ShopifyCollection[]) => {
+  const out: Collection[] = [];
+  for (const c of collections) {
+    if (!c) continue;
+    const shaped = reshapeCollection(c);
+    if (shaped) out.push(shaped);
+  }
+  return out;
+};
+
+export async function getCollection(handle: string): Promise<Collection | undefined> {
   'use cache';
   cacheTag(TAGS.collections);
   cacheLife('days');
 
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
-    variables: {
-      handle
-    }
+    variables: { handle }
   });
-
   return reshapeCollection(res.body.data.collection);
 }
 
@@ -308,7 +270,6 @@ export async function getCollectionProducts({
   sortKey?: string;
 }): Promise<Product[]> {
   'use cache';
-
   try {
     cacheTag(TAGS.collections, TAGS.products);
     cacheLife('days');
@@ -326,7 +287,6 @@ export async function getCollectionProducts({
       console.warn(`⚠️ No collection found for "${collection}"`);
       return [];
     }
-
     const edges = res.body.data.collection.products?.edges ?? [];
     return reshapeProducts(removeEdgesAndNodes({ edges }));
   } catch (err) {
@@ -343,29 +303,23 @@ export async function getCollections(): Promise<Collection[]> {
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery
   });
+
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
   const collections = [
     {
       handle: '',
       title: 'All',
       description: 'All products',
-      seo: {
-        title: 'All',
-        description: 'All products'
-      },
+      seo: { title: 'All', description: 'All products' },
       path: '/search',
       updatedAt: new Date().toISOString()
     },
-    // Filter out the `hidden` collections.
-    // Collections that start with `hidden-*` need to be hidden on the search page.
-    ...reshapeCollections(shopifyCollections).filter(
-      (collection) => !collection.handle.startsWith('hidden')
-    )
+    ...reshapeCollections(shopifyCollections).filter((c) => !c.handle.startsWith('hidden'))
   ];
-
   return collections;
 }
 
+/** ---------- Menu / Pages ---------- */
 export async function getMenu(handle: string): Promise<Menu[]> {
   'use cache';
   cacheTag(TAGS.collections);
@@ -373,9 +327,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
 
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
-    variables: {
-      handle
-    }
+    variables: { handle }
   });
 
   return (
@@ -394,7 +346,6 @@ export async function getPage(handle: string): Promise<Page> {
     query: getPageQuery,
     variables: { handle }
   });
-
   return res.body.data.pageByHandle;
 }
 
@@ -402,30 +353,31 @@ export async function getPages(): Promise<Page[]> {
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery
   });
-
   return removeEdgesAndNodes(res.body.data.pages);
 }
-export async function customerLogin(email: string, password: string) {
-  const res = await shopifyFetch<any>({
-    query: CUSTOMER_ACCESS_TOKEN_CREATE,
-    variables: {
-      input: { email, password }
-    }
-  });
 
-  return res.body.data.customerAccessTokenCreate;
-}
+/** ---------- Products ---------- */
+const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts = true) => {
+  if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
+    return undefined;
+  }
+  const { images, variants, ...rest } = product;
+  return {
+    ...rest,
+    images: reshapeImages(images, product.title),
+    variants: removeEdgesAndNodes(variants)
+  };
+};
 
-export async function customerRegister(email: string, password: string) {
-  const res = await shopifyFetch<any>({
-    query: CUSTOMER_CREATE,
-    variables: {
-      input: { email, password }
-    }
-  });
-
-  return res.body.data.customerCreate;
-}
+const reshapeProducts = (products: ShopifyProduct[]) => {
+  const out: Product[] = [];
+  for (const p of products) {
+    if (!p) continue;
+    const shaped = reshapeProduct(p);
+    if (shaped) out.push(shaped);
+  }
+  return out;
+};
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
   'use cache';
@@ -434,28 +386,20 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
-    variables: {
-      handle
-    }
+    variables: { handle }
   });
-
   return reshapeProduct(res.body.data.product, false);
 }
 
-export async function getProductRecommendations(
-  productId: string
-): Promise<Product[]> {
+export async function getProductRecommendations(productId: string): Promise<Product[]> {
   'use cache';
   cacheTag(TAGS.products);
   cacheLife('days');
 
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
-    variables: {
-      productId
-    }
+    variables: { productId }
   });
-
   return reshapeProducts(res.body.data.productRecommendations);
 }
 
@@ -473,56 +417,146 @@ export async function getProducts({
   after?: string;
 }): Promise<{
   products: Product[];
-  pageInfo: {
-    hasNextPage: boolean;
-    endCursor: string | null;
-  };
+  pageInfo: { hasNextPage: boolean; endCursor: string | null };
 }> {
   'use cache';
   cacheTag(TAGS.products);
   cacheLife('days');
-  console.log('🟡 getProducts: Sending query to Shopify...');
-  console.log('🟡 Variables:', { query, reverse, sortKey, first, after });
+
+  console.log('🟡 getProducts vars:', { query, reverse, sortKey, first, after });
 
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
-    variables: {
-      query,
-      reverse,
-      sortKey,
-      first,
-      after
-    }
+    variables: { query, reverse, sortKey, first, after }
   });
 
   const connection = res.body.data.products;
   const edges = connection?.edges ?? [];
-
   return {
-    products: reshapeProducts(edges.map(edge => edge.node)),
-    pageInfo: {
-      hasNextPage: connection.pageInfo.hasNextPage,
-      endCursor: connection.pageInfo.endCursor
-    }
+    products: reshapeProducts(edges.map((e) => e.node)),
+    pageInfo: { hasNextPage: connection.pageInfo.hasNextPage, endCursor: connection.pageInfo.endCursor }
   };
 }
 
+/** ---------- Customers ---------- */
+export async function customerLogin(email: string, password: string) {
+  const res = await shopifyFetch<any>({
+    query: CUSTOMER_ACCESS_TOKEN_CREATE,
+    variables: { input: { email, password } }
+  });
+  return res.body.data.customerAccessTokenCreate;
+}
 
+export async function customerRegister(email: string, password: string) {
+  const res = await shopifyFetch<any>({
+    query: CUSTOMER_CREATE,
+    variables: { input: { email, password } }
+  });
+  return res.body.data.customerCreate;
+}
 
+/** ---------- Blog（新增） ---------- */
+/**
+ * 取得某個 blog（以 handle）
+ */
+export async function getBlog(handle: string) {
+  const query = /* GraphQL */ `
+    query BlogByHandle($handle: String!) {
+      blog(handle: $handle) {
+        id
+        handle
+        title
+        seo { title description }
+      }
+    }
+  `;
+  const res = await shopifyFetch<any>({ query, variables: { handle } });
+  return res.body.data.blog;
+}
+
+/**
+ * 取得文章列表（支援分頁、依 tag 過濾）
+ */
+export async function getBlogArticles(params: {
+  blogHandle: string;
+  first?: number;
+  after?: string | null;
+  tag?: string; // 例如 "news"
+}) {
+  const { blogHandle, first = 12, after, tag } = params;
+  const query = /* GraphQL */ `
+    query Articles($handle: String!, $first: Int!, $after: String, $query: String) {
+      blog(handle: $handle) {
+        id
+        title
+        articles(first: $first, after: $after, sortKey: PUBLISHED_AT, reverse: true, query: $query) {
+          edges {
+            cursor
+            node {
+              id
+              handle
+              title
+              excerpt
+              contentHtml
+              publishedAt
+              tags
+              authorV2 { name }
+              image { url altText width height }
+            }
+          }
+          pageInfo { hasNextPage endCursor }
+        }
+      }
+    }
+  `;
+  // Shopify 的文章搜尋語法：tag:"xxx"
+  const queryStr = tag ? `tag:"${tag}"` : undefined;
+  const res = await shopifyFetch<any>({
+    query,
+    variables: { handle: blogHandle, first, after, query: queryStr }
+  });
+
+  const blog = res.body.data.blog;
+  const edges = blog?.articles?.edges ?? [];
+  return {
+    blog,
+    articles: edges.map((e: any) => e.node),
+    pageInfo: blog?.articles?.pageInfo ?? { hasNextPage: false, endCursor: null }
+  };
+}
+
+// 單篇文章（新增這段）
+export async function getBlogArticle(blogHandle: string, articleHandle: string) {
+  const query = /* GraphQL */ `
+    query Article($blog: String!, $article: String!) {
+      blog(handle: $blog) {
+        articleByHandle(handle: $article) {
+          id
+          handle
+          title
+          contentHtml
+          excerpt
+          publishedAt
+          tags
+          authorV2 { name }
+          image { url altText width height }
+          seo { title description }
+        }
+      }
+    }
+  `;
+  const res = await shopifyFetch<any>({
+    query,
+    variables: { blog: blogHandle, article: articleHandle }
+  });
+  return res.body.data.blog?.articleByHandle;
+}
+/** ---------- Revalidate（原樣，略加註解） ---------- */
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
 export async function revalidate(req: NextRequest): Promise<NextResponse> {
-  // We always need to respond with a 200 status code to Shopify,
-  // otherwise it will continue to retry the request.
-  const collectionWebhooks = [
-    'collections/create',
-    'collections/delete',
-    'collections/update'
-  ];
-  const productWebhooks = [
-    'products/create',
-    'products/delete',
-    'products/update'
-  ];
+  // Always respond 200 to Shopify
+  const collectionWebhooks = ['collections/create', 'collections/delete', 'collections/update'];
+  const productWebhooks = ['products/create', 'products/delete', 'products/update'];
   const topic = (await headers()).get('x-shopify-topic') || 'unknown';
   const secret = req.nextUrl.searchParams.get('secret');
   const isCollectionUpdate = collectionWebhooks.includes(topic);
@@ -534,17 +568,11 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   }
 
   if (!isCollectionUpdate && !isProductUpdate) {
-    // We don't need to revalidate anything for any other topics.
     return NextResponse.json({ status: 200 });
   }
 
-  if (isCollectionUpdate) {
-    revalidateTag(TAGS.collections);
-  }
-
-  if (isProductUpdate) {
-    revalidateTag(TAGS.products);
-  }
+  if (isCollectionUpdate) revalidateTag(TAGS.collections);
+  if (isProductUpdate) revalidateTag(TAGS.products);
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }

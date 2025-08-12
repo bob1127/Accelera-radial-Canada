@@ -104,7 +104,7 @@ export default function MobileCollectionsMenu() {
                   )}
                 </li>
                 <li>
-                  <Link href="/news" className="text-lg font-medium text-black">
+                  <Link href="/blog" className="text-lg font-medium text-black">
                     NEWS
                   </Link>
                 </li>
